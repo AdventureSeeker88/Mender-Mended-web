@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mended_mender/mended/signin/mended_signin.dart';
 import 'package:mended_mender/mender/home/home_screen.dart';
 import 'package:mended_mender/mender/register/mender_signup.dart';
 import 'package:mended_mender/mender/signin/mender_signin.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home: const HomeScreen(),
+      home: MendedSignIn(),
     );
   }
 }
