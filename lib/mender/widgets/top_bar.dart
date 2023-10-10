@@ -15,7 +15,7 @@ class TopBar extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: SizedBox(
           height: 50,
-          width: size.width / 1.2,
+          width: size.width / 1.1,
           child: Center(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
