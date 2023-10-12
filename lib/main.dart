@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mended_mender/mended/signin/mended_signin.dart';
 import 'package:mended_mender/mender/home/home_screen.dart';
-import 'package:mended_mender/mender/register/mender_signup.dart';
-import 'package:mended_mender/mender/signin/mender_signin.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +15,20 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home: HomeScreen(),
+      // home: MenderHomeScreen(),
+      home: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth > 900) {
+            // If the width is greater than 900, display the web layout
+            return MenderHomeScreen();
+          } else {
+            // Otherwise, display the mobile layout
+            return Center(
+              child: Text("Mobile App"),
+            );
+          }
+        },
+      ),
     );
   }
 }

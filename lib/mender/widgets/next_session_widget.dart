@@ -18,8 +18,8 @@ class NextSessionCard extends StatelessWidget {
     var size = MediaQuery.of(context).size;
 
     return Container(
-      padding: EdgeInsets.all(15),
-      width: size.width * 0.21,
+      padding: const EdgeInsets.all(15),
+      width: 270,
       // height: size.height * 0.22,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
@@ -32,17 +32,17 @@ class NextSessionCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(fontSize: 12, color: Color(0xff838383)),
+            style: const TextStyle(fontSize: 12, color: Color(0xff838383)),
           ),
-          SizedBox(height: 25.0),
+          const SizedBox(height: 25.0),
           Text(
             date,
-            style: TextStyle(fontSize: 12, color: Color(0xff838383)),
+            style: const TextStyle(fontSize: 12, color: Color(0xff838383)),
           ),
-          SizedBox(height: 4.0),
+          const SizedBox(height: 4.0),
           Container(
-            padding: EdgeInsets.all(10),
-            width: size.width * 0.20,
+            padding: const EdgeInsets.all(10),
+            // width: size.width * 0.20,
             // height: size.height * 0.1,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
@@ -58,20 +58,20 @@ class NextSessionCard extends StatelessWidget {
                   width: 30,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
-                    color: Color(0xff6DD8CF),
+                    color: const Color(0xff6DD8CF),
                   ),
-                  child: Icon(
+                  child: const Icon(
                     FontAwesomeIcons.calendarCheck,
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       buddyName,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 12,
                           color: Color(
                             0xff0fbf80,
@@ -79,21 +79,22 @@ class NextSessionCard extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           FontAwesomeIcons.clock,
                           color: Colors.black26,
                           size: 12,
                         ),
-                        SizedBox(width: 3),
+                        const SizedBox(width: 3),
                         Text(
                           time,
-                          style: TextStyle(fontSize: 12, color: Colors.black26),
+                          style: const TextStyle(
+                              fontSize: 12, color: Colors.black26),
                         ),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 InkWell(
                   onTap: () {},
                   child: Container(
@@ -101,9 +102,9 @@ class NextSessionCard extends StatelessWidget {
                     width: 60,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      color: Color(0xffe6f7f1),
+                      color: const Color(0xffe6f7f1),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         'Join',
                         style: TextStyle(
