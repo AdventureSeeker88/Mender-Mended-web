@@ -14,7 +14,7 @@ class MenderHomeScreen extends StatefulWidget {
 }
 
 class _MenderHomeScreenState extends State<MenderHomeScreen> {
-  int selectedIndex = 0;
+  int selectedIndex = 1;
   List usersList = [
     const UserContainer(
       imageUrl: 'assets/mender/profileimage.png',
@@ -541,28 +541,30 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
     );
   }
 
+  Widget getFlicksWidget(size) {
+    return SizedBox(
+      height: size.height,
+      width: size.width / 2.2,
+      child: ListView.builder(
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return getCard(size);
+          }),
+    );
+  }
+
+  Widget getCalendarWidget(size) {
+    return Center(
+      child: Text("Calendar"),
+    );
+  }
+
   Widget getMainWidget(size) {
     if (selectedIndex == 0) {
-      return SizedBox(
-        height: size.height,
-        width: size.width / 2.2,
-        child: ListView.builder(
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return getCard(size);
-            }),
-      );
+      return getFlicksWidget(size);
     }
     if (selectedIndex == 1) {
-      return SizedBox(
-        height: size.height,
-        width: size.width / 2.2,
-        child: ListView.builder(
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return getCard(size);
-            }),
-      );
+      return getCalendarWidget(size);
     }
     if (selectedIndex == 2) {
       return SizedBox(
@@ -690,6 +692,7 @@ class UserContainer extends StatelessWidget {
               ),
             ),
           ),
+          Spacer(),
           Row(
             children: [
               Container(
@@ -704,8 +707,8 @@ class UserContainer extends StatelessWidget {
                   color: Color(0xff0fbf80),
                 ),
               ),
-              const SizedBox(
-                width: 8,
+              SizedBox(
+                width: 5,
               ),
               Container(
                 padding: const EdgeInsets.all(5),
