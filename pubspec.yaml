@@ -38,6 +38,8 @@ dependencies:
   flutter_social_button: ^1.1.4+1
   flutter_svg: ^2.0.7
   cached_network_image: ^3.3.0
+  syncfusion_flutter_datepicker: ^23.1.40
+
 
 dev_dependencies:
   flutter_test:

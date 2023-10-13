@@ -4,7 +4,9 @@ import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:mended_mender/mender/colors.dart';
 import 'package:mended_mender/mender/widgets/balance_card.dart';
 import 'package:mended_mender/mender/widgets/top_bar.dart';
+import '../widgets/custom_elevated_button.dart';
 import '../widgets/next_session_widget.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class MenderHomeScreen extends StatefulWidget {
   const MenderHomeScreen({super.key});
@@ -114,19 +116,6 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
               ),
               SizedBox(
                 height: size.height * 0.04,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CustomButton(text: 'Friends'),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 25),
-                    width: 0.5, // Adjust the width as needed
-                    height: 20.0, // Adjust the height as needed
-                    color: Colors.black,
-                  ),
-                  const CustomButton(text: 'Popular'),
-                ],
               ),
               SizedBox(
                 height: size.height * 0.03,
@@ -319,6 +308,19 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CustomButton(text: 'Friends'),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 25),
+                width: 0.5, // Adjust the width as needed
+                height: 20.0, // Adjust the height as needed
+                color: Colors.black,
+              ),
+              const CustomButton(text: 'Popular'),
+            ],
+          ),
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -554,11 +556,208 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
   }
 
   Widget getCalendarWidget(size) {
-    return Center(
-      child: Text("Calendar"),
+    return SizedBox(
+        height: size.height,
+        width: size.width / 2.8,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10.0,
+                    blurStyle: BlurStyle.outer,
+                  )
+                ],
+              ),
+              child: SfDateRangePicker(
+                onSelectionChanged: _onSelectionChanged,
+                selectionMode: DateRangePickerSelectionMode.range,
+              ),
+            ),
+            SizedBox(
+              height: 18,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      '23 October 2023',
+                      style: TextStyle(color: Colors.black38, fontSize: 16),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  reminderContainer(
+                    name: 'Snugglebug Session',
+                    time: '1:00 - 2:00 PM',
+                    date: '23\nOct',
+                    imageUrl: 'assets/mender/images1.jpg',
+                  ),
+                  reminderContainer(
+                    name: 'kai Liu Session',
+                    time: '5:00 - 6:00 PM',
+                    date: '24\nOct',
+                    imageUrl: 'assets/mender/images2.jpeg',
+                  )
+                ],
+              ),
+            ),
+            // ListView.builder(
+            //     shrinkWrap: true,
+            //     itemBuilder: (context, index) {
+            //       return getCard(size);
+            //     }),
+          ],
+        ));
+  }
+
+  Widget getWalletWidget(size) {
+    return SizedBox(
+      height: size.height,
+      width: size.width / 2.8,
+      child: Column(
+        children: [
+          Container(
+            height: 150,
+            width: 500,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Color(0xff82e5c1),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 10.0,
+                  blurStyle: BlurStyle.outer,
+                ),
+              ],
+            ),
+            child: Container(
+              height: 150,
+              width: 500,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(65.0),
+                  topLeft: Radius.circular(10.0),
+                  topRight: Radius.circular(10.0),
+                  bottomLeft: Radius.circular(10.0),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0, top: 40.0),
+                        child: Text(
+                          'Total Balance',
+                          style: TextStyle(color: Colors.black54),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 35.0),
+                        child: Text(
+                          '\$247.52',
+                          style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.w900,
+                            color: Color(0xff05b475),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 150.0),
+                  CustomElevatedButton(title: 'Withdraw', callback: () {}),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 30),
+          Container(
+            width: 400,
+            height: 600,
+            color: Colors.white,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text('Last Mended Session'),
+                    SizedBox(width: 180),
+                    InkWell(
+                      onTap: () {},
+                      child: Text(
+                        'view all',
+                        style: TextStyle(color: Color(0xff05b475)),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount:
+                      3, // Replace with the actual number of items in your list
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        Container(
+                          width: 400,
+                          height: 70,
+                          color: Colors.white,
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 25,
+                                backgroundImage:
+                                    AssetImage('assets/mender/avatar1.jpg'),
+                              ),
+                              SizedBox(width: 20),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 13.0),
+                                    child: Text('Snugglebug',
+                                        style: TextStyle(color: Colors.black)),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text('Oct 14, 10:24 PM',
+                                      style: TextStyle(color: Colors.black38)),
+                                ],
+                              ),
+                              SizedBox(width: 140),
+                              Text('-\$15.00',
+                                  style: TextStyle(color: Colors.red.shade900)),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                      ],
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    // TODO: implement your code here
+  }
   Widget getMainWidget(size) {
     if (selectedIndex == 0) {
       return getFlicksWidget(size);
@@ -567,15 +766,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
       return getCalendarWidget(size);
     }
     if (selectedIndex == 2) {
-      return SizedBox(
-        height: size.height,
-        width: size.width / 2.2,
-        child: ListView.builder(
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return getCard(size);
-            }),
-      );
+      return getWalletWidget(size);
     }
     if (selectedIndex == 3) {
       return SizedBox(
@@ -607,6 +798,104 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
           itemBuilder: (context, index) {
             return getCard(size);
           }),
+    );
+  }
+}
+
+class reminderContainer extends StatelessWidget {
+  final String date;
+  final String time;
+  final String name;
+  final String imageUrl;
+
+  const reminderContainer({
+    required this.date,
+    required this.time,
+    required this.name,
+    required this.imageUrl,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 20),
+      margin: EdgeInsets.only(bottom: 10),
+      child: Row(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Color(0xff0A8357),
+            ),
+            width: 4, // Adjust the width as needed
+            height: 36, // Adjust the height as needed
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          Text(
+            date.toUpperCase(),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color(0xff0A8357),
+            ),
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          Flexible(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 12.0,
+                      backgroundImage: AssetImage(imageUrl),
+                    ),
+                    Text(
+                      name,
+                      style: TextStyle(color: Colors.black, fontSize: 15),
+                    )
+                  ],
+                ),
+                Center(
+                  child: Text(
+                    time,
+                    style: TextStyle(color: Colors.black45),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 15,
+          ),
+          Flexible(
+            child: InkWell(
+              onTap: () {},
+              child: Container(
+                height: 30,
+                width: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: const Color(0xffe6f7f1),
+                ),
+                child: const Center(
+                  child: Text(
+                    'Join call',
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xff0fbf80),
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
