@@ -1587,6 +1587,148 @@ class ClientContainer extends StatelessWidget {
   }
 }
 
+// class MessageContainer extends StatelessWidget {
+//   final String imageUrl;
+//   final String name;
+//   final String msgtxt;
+//   final String time;
+//
+//   const MessageContainer({
+//     super.key,
+//     required this.imageUrl,
+//     required this.name,
+//     required this.msgtxt,
+//     required this.time,
+//   });
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     var size = MediaQuery.of(context).size;
+//     return Column(
+//       children: [
+//         Container(
+//           padding: const EdgeInsets.all(10),
+//           // width: MediaQuery.of(context).size.width * 0.21,
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(10),
+//             color: Colors.white,
+//           ),
+//
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.start,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               CircleAvatar(
+//                 radius: 15.0,
+//                 backgroundImage: AssetImage(imageUrl),
+//               ),
+//               const SizedBox(
+//                 width: 5,
+//               ),
+//               Column(
+//                 mainAxisAlignment: MainAxisAlignment.start,
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Row(
+//                     children: [
+//                       Text(
+//                         name,
+//                         style: TextStyle(
+//                           color: Colors.black.withOpacity(0.7),
+//                           fontSize: 14,
+//                           fontWeight: FontWeight.w900,
+//                         ),
+//                       ),
+//                       SizedBox(
+//                         width: size.width * 0.09,
+//                       ),
+//                       Text(
+//                         time,
+//                         style: TextStyle(
+//                           color: Colors.black.withOpacity(0.4),
+//                           fontSize: 12,
+//                           fontWeight: FontWeight.w900,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   Row(
+//                     children: [
+//                       Text(
+//                         msgtxt,
+//                         style: TextStyle(
+//                           color: Colors.black.withOpacity(0.4),
+//                           fontSize: 14,
+//                           fontWeight: FontWeight.w900,
+//                         ),
+//                       ),
+//                       SizedBox(
+//                         width: size.width * 0.03,
+//                       ),
+//                       Icon(
+//                         Icons.arrow_forward_ios,
+//                         size: 20,
+//                         color: Color(0xff09BE7D),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               )
+//
+//               // Column(
+//               //   mainAxisAlignment: MainAxisAlignment.start,
+//               //   children: [
+//               //     Row(
+//               //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//               //       children: [
+//               //         Text(
+//               //           name,
+//               //           style: TextStyle(
+//               //             color: Colors.black.withOpacity(0.7),
+//               //             fontSize: 14,
+//               //             fontWeight: FontWeight.w900,
+//               //           ),
+//               //         ),
+//               //         Text(
+//               //           time,
+//               //           style: TextStyle(
+//               //             color: Colors.black.withOpacity(0.4),
+//               //             fontSize: 12,
+//               //             fontWeight: FontWeight.w900,
+//               //           ),
+//               //         ),
+//               //       ],
+//               //     ),
+//               //     Row(
+//               //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               //       children: [
+//               //         Text(
+//               //           msgtxt,
+//               //           style: TextStyle(
+//               //             color: Colors.black.withOpacity(0.4),
+//               //             fontSize: 14,
+//               //             fontWeight: FontWeight.w900,
+//               //           ),
+//               //         ),
+//               //         Icon(
+//               //           Icons.arrow_forward_ios,
+//               //           size: 20,
+//               //           color: Color(0xff09BE7D),
+//               //         )
+//               //       ],
+//               //     )
+//               //   ],
+//               // )
+//             ],
+//           ),
+//         ),
+//         SizedBox(
+//           height: 10,
+//         )
+//       ],
+//     );
+//   }
+// }
 class MessageContainer extends StatelessWidget {
   final String imageUrl;
   final String name;
@@ -1594,12 +1736,12 @@ class MessageContainer extends StatelessWidget {
   final String time;
 
   const MessageContainer({
-    super.key,
+    Key? key,
     required this.imageUrl,
     required this.name,
     required this.msgtxt,
     required this.time,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -1608,123 +1750,70 @@ class MessageContainer extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.all(10),
-          // width: MediaQuery.of(context).size.width * 0.21,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.white,
           ),
-
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CircleAvatar(
                 radius: 15.0,
                 backgroundImage: AssetImage(imageUrl),
               ),
-              const SizedBox(
-                width: 5,
+              const SizedBox(width: 5),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          name,
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.7),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        Text(
+                          time,
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.4),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            msgtxt,
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.4),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w900,
+                            ),
+                            overflow: TextOverflow.ellipsis, // Handle overflow
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                          color: Color(0xff09BE7D),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        name,
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(0.7),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      SizedBox(
-                        width: size.width * 0.09,
-                      ),
-                      Text(
-                        time,
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(0.4),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        msgtxt,
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(0.4),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      SizedBox(
-                        width: size.width * 0.03,
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 20,
-                        color: Color(0xff09BE7D),
-                      ),
-                    ],
-                  ),
-                ],
-              )
-
-              // Column(
-              //   mainAxisAlignment: MainAxisAlignment.start,
-              //   children: [
-              //     Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //       children: [
-              //         Text(
-              //           name,
-              //           style: TextStyle(
-              //             color: Colors.black.withOpacity(0.7),
-              //             fontSize: 14,
-              //             fontWeight: FontWeight.w900,
-              //           ),
-              //         ),
-              //         Text(
-              //           time,
-              //           style: TextStyle(
-              //             color: Colors.black.withOpacity(0.4),
-              //             fontSize: 12,
-              //             fontWeight: FontWeight.w900,
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //     Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //       children: [
-              //         Text(
-              //           msgtxt,
-              //           style: TextStyle(
-              //             color: Colors.black.withOpacity(0.4),
-              //             fontSize: 14,
-              //             fontWeight: FontWeight.w900,
-              //           ),
-              //         ),
-              //         Icon(
-              //           Icons.arrow_forward_ios,
-              //           size: 20,
-              //           color: Color(0xff09BE7D),
-              //         )
-              //       ],
-              //     )
-              //   ],
-              // )
             ],
           ),
         ),
-        SizedBox(
-          height: 10,
-        )
+        const SizedBox(height: 10),
       ],
     );
   }
