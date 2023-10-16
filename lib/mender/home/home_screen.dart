@@ -16,6 +16,7 @@ class MenderHomeScreen extends StatefulWidget {
 }
 
 class _MenderHomeScreenState extends State<MenderHomeScreen> {
+  TextEditingController SearchController = TextEditingController();
   int selectedIndex = 1;
   List usersList = [
     const UserContainer(
@@ -161,7 +162,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: size.height * 0.50,
+                            height: size.height * 0.70,
                           ),
                           Container(
                             padding:
@@ -184,6 +185,9 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                               color: const Color(0xfff5fcf9),
                             ),
                           ),
+                          SizedBox(
+                            height: size.height * 0.03,
+                          ),
                         ],
                       ),
                       getMainWidget(size),
@@ -204,6 +208,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                             ),
                             Flexible(
                               child: Container(
+                                // height: size.height * 0.09,
                                 padding: const EdgeInsets.all(15),
                                 // width: size.width * 0.21,
                                 decoration: BoxDecoration(
@@ -259,7 +264,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                               ),
                             ),
                             SizedBox(
-                              height: size.height * 0.08,
+                              height: size.height * 0.06,
                             ),
                             const Row(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -284,7 +289,10 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                                       color: Colors.black26, fontSize: 13),
                                 ),
                               ],
-                            )
+                            ),
+                            SizedBox(
+                              height: size.height * 0.02,
+                            ),
                           ],
                         ),
                       )
@@ -308,19 +316,6 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CustomButton(text: 'Friends'),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 25),
-                width: 0.5, // Adjust the width as needed
-                height: 20.0, // Adjust the height as needed
-                color: Colors.black,
-              ),
-              const CustomButton(text: 'Popular'),
-            ],
-          ),
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -493,13 +488,14 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
             ),
           ),
           Container(
+            alignment: Alignment.bottomRight,
             padding: EdgeInsets.only(bottom: size.height * 0.03),
             height: 30,
             width: 30,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
               image: const DecorationImage(
-                image: AssetImage('assets/mender/logo.png'),
+                image: AssetImage('assets/mender/plus.png'),
               ),
               boxShadow: const [
                 BoxShadow(
@@ -545,14 +541,32 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
 
   Widget getFlicksWidget(size) {
     return SizedBox(
-      height: size.height,
-      width: size.width / 2.2,
-      child: ListView.builder(
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return getCard(size);
-          }),
-    );
+        height: size.height,
+        width: size.width / 2.2,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CustomButton(text: 'Friends'),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                  width: 0.5, // Adjust the width as needed
+                  height: 20.0, // Adjust the height as needed
+                  color: Colors.black,
+                ),
+                const CustomButton(text: 'Popular'),
+              ],
+            ),
+            Expanded(
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return getCard(size);
+                  }),
+            ),
+          ],
+        ));
   }
 
   Widget getCalendarWidget(size) {
@@ -597,18 +611,29 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  reminderContainer(
-                    name: 'Snugglebug Session',
-                    time: '1:00 - 2:00 PM',
-                    date: '23\nOct',
-                    imageUrl: 'assets/mender/images1.jpg',
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount:
+                        3, // Replace with the actual number of items in your list
+                    itemBuilder: (BuildContext context, int index) {
+                      return ReminderContainer(
+                        name: 'Snugglebug Session',
+                        time: '1:00 - 2:00 PM',
+                        date: '23\nOct',
+                        imageUrl: 'assets/mender/images1.jpg',
+                      );
+                    },
                   ),
-                  reminderContainer(
-                    name: 'kai Liu Session',
-                    time: '5:00 - 6:00 PM',
-                    date: '24\nOct',
-                    imageUrl: 'assets/mender/images2.jpeg',
+                  const SizedBox(
+                    height: 10,
                   )
+
+                  // reminderContainer(
+                  //   name: 'kai Liu Session',
+                  //   time: '5:00 - 6:00 PM',
+                  //   date: '24\nOct',
+                  //   imageUrl: 'assets/mender/images2.jpeg',
+                  // )
                 ],
               ),
             ),
@@ -621,15 +646,20 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
         ));
   }
 
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    // TODO: implement your code here
+  }
+
   Widget getWalletWidget(size) {
     return SizedBox(
       height: size.height,
       width: size.width / 2.8,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            height: 150,
-            width: 500,
+            width: size.width / 3,
+            height: size.height * 0.17,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color: Color(0xff82e5c1),
@@ -638,12 +668,12 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                   color: Colors.black12,
                   blurRadius: 10.0,
                   blurStyle: BlurStyle.outer,
-                ),
+                )
               ],
             ),
             child: Container(
-              height: 150,
-              width: 500,
+              width: size.width / 3,
+              height: size.height * 0.17,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -653,101 +683,183 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                   bottomLeft: Radius.circular(10.0),
                 ),
               ),
-              child: Row(
-                children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0, top: 40.0),
-                        child: Text(
-                          'Total Balance',
-                          style: TextStyle(color: Colors.black54),
+              child: Padding(
+                padding: EdgeInsets.only(right: 13),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Text(
+                            'Total Balance',
+                            style: TextStyle(color: Colors.black54),
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 35.0),
-                        child: Text(
-                          '\$247.52',
-                          style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.w900,
-                            color: Color(0xff05b475),
+                        SizedBox(height: 2),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 13, bottom: 8),
+                          child: Text(
+                            '\$224.57',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xff05b475),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        height: size.height * 0.04,
+                        width: size.width * 0.09,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 10.0,
+                              blurStyle: BlurStyle.outer,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(50),
+                          color: const Color(0xff09BE7D),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Withdraw',
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  SizedBox(width: 150.0),
-                  CustomElevatedButton(title: 'Withdraw', callback: () {}),
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-          SizedBox(height: 30),
-          Container(
-            width: 400,
-            height: 600,
-            color: Colors.white,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text('Last Mended Session'),
-                    SizedBox(width: 180),
-                    InkWell(
-                      onTap: () {},
-                      child: Text(
-                        'view all',
-                        style: TextStyle(color: Color(0xff05b475)),
+          SizedBox(
+            height: size.height * 0.03,
+          ),
+          SizedBox(
+            width: size.width / 3.5,
+            // padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Center(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Last Mended Sessions',
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 15),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount:
-                      3, // Replace with the actual number of items in your list
-                  itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      children: [
-                        Container(
-                          width: 400,
-                          height: 70,
-                          color: Colors.white,
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 25,
-                                backgroundImage:
-                                    AssetImage('assets/mender/avatar1.jpg'),
-                              ),
-                              SizedBox(width: 20),
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 13.0),
-                                    child: Text('Snugglebug',
-                                        style: TextStyle(color: Colors.black)),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Text('Oct 14, 10:24 PM',
-                                      style: TextStyle(color: Colors.black38)),
-                                ],
-                              ),
-                              SizedBox(width: 140),
-                              Text('-\$15.00',
-                                  style: TextStyle(color: Colors.red.shade900)),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                      ],
-                    );
-                  },
-                ),
-              ],
+                      Text(
+                        'View All',
+                        style: TextStyle(
+                            color: Color(0xff09BE7D),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount:
+                        3, // Replace with the actual number of items in your list
+                    itemBuilder: (BuildContext context, int index) {
+                      return CustomListTile(
+                        name: 'John Doe',
+                        date: 'Oct 14',
+                        time: '10:24 AM',
+                        amount: '-\$15.00',
+                        imageUrl: 'assets/mender/images1.jpg',
+                      );
+                    },
+                  ),
+
+                  // Container(
+                  //   // padding: EdgeInsets.only(left: 20),
+                  //   child: Row(
+                  //     children: [
+                  //       CircleAvatar(
+                  //         radius: 18.0,
+                  //         backgroundImage:
+                  //             AssetImage('assets/mender/images1.jpg'),
+                  //       ),
+                  //       SizedBox(
+                  //         width: 8,
+                  //       ),
+                  //       Expanded(
+                  //         child: const Column(
+                  //           mainAxisAlignment: MainAxisAlignment.start,
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           children: [
+                  //             Text(
+                  //               'name',
+                  //               style: TextStyle(
+                  //                   color: Colors.black, fontSize: 16),
+                  //             ),
+                  //             Row(
+                  //               mainAxisAlignment: MainAxisAlignment.start,
+                  //               children: [
+                  //                 Text(
+                  //                   'date',
+                  //                   style: TextStyle(
+                  //                       color: Colors.black38, fontSize: 12),
+                  //                 ),
+                  //                 Text(
+                  //                   ',',
+                  //                   style: TextStyle(color: Colors.black38),
+                  //                 ),
+                  //                 Text(
+                  //                   'time',
+                  //                   style: TextStyle(
+                  //                       color: Colors.black38, fontSize: 12),
+                  //                 )
+                  //               ],
+                  //             )
+                  //           ],
+                  //         ),
+                  //       ),
+                  //       Spacer(),
+                  //       Expanded(
+                  //           child: const Text(
+                  //         'amount',
+                  //         style: TextStyle(color: Colors.red, fontSize: 16),
+                  //       ))
+                  //     ],
+                  //   ),
+                  // )
+                  // ListView.builder(
+                  //   shrinkWrap: true,
+                  //   itemCount:
+                  //       2, // Replace with the actual number of items in your list
+                  //   itemBuilder: (BuildContext context, int index) {
+                  //     return LastMendedContainer(
+                  //         date: 'Oct 14',
+                  //         time: '10:24 AM',
+                  //         amount: '-\$15.00',
+                  //         name: 'Joyjammer',
+                  //         imageUrl: 'assets/mender/images1.jpg');
+                  //   },
+                  // ),
+                ],
+              ),
             ),
           ),
         ],
@@ -755,9 +867,103 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
     );
   }
 
-  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
-    // TODO: implement your code here
+  Widget getClientListWidget(size) {
+    return SizedBox(
+      height: size.height,
+      width: size.width / 3.3,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.white,
+              border: Border.all(color: Color(0xff0A8357).withOpacity(0.7)),
+            ),
+            child: ListTile(
+              leading: Icon(
+                Icons.search,
+                color: Color(0xff0A8357),
+                size: 24,
+              ),
+              title: TextField(
+                controller: SearchController,
+                style: const TextStyle(fontSize: 14),
+                // cursorColor: Colors.orange,
+                // obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Search',
+                  hintStyle: TextStyle(
+                    fontSize: 14,
+                    color: Color(0xff0A8357),
+                  ),
+                  // contentPadding: const EdgeInsets.only(left: 16),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: size.height * 0.03,
+          ),
+          InkWell(
+            onTap: () {},
+            child: Container(
+              height: size.height * 0.04,
+              width: size.width * 0.09,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage("assets/mender/colorfulbutton.png")),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10.0,
+                    blurStyle: BlurStyle.outer,
+                  )
+                ],
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.transparent,
+              ),
+              child: const Center(
+                child: Text(
+                  'Find Clients',
+                  style: TextStyle(
+                      letterSpacing: 1,
+                      fontSize: 12,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: size.height * 0.03,
+          ),
+          SizedBox(
+            width: size.width / 3.5,
+            // padding: const EdgeInsets.symmetric(horizontal: 15.0),
+
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount:
+                  3, // Replace with the actual number of items in your list
+              itemBuilder: (BuildContext context, int index) {
+                return CustomListTile(
+                  name: 'John Doe',
+                  date: 'Oct 14',
+                  time: '10:24 AM',
+                  amount: '-\$15.00',
+                  imageUrl: 'assets/mender/images1.jpg',
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
+
   Widget getMainWidget(size) {
     if (selectedIndex == 0) {
       return getFlicksWidget(size);
@@ -769,15 +975,16 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
       return getWalletWidget(size);
     }
     if (selectedIndex == 3) {
-      return SizedBox(
-        height: size.height,
-        width: size.width / 2.2,
-        child: ListView.builder(
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return getCard(size);
-            }),
-      );
+      return getClientListWidget(size);
+      // return SizedBox(
+      //   height: size.height,
+      //   width: size.width / 2.2,
+      //   child: ListView.builder(
+      //       shrinkWrap: true,
+      //       itemBuilder: (context, index) {
+      //         return getCard(size);
+      //       }),
+      // );
     }
     if (selectedIndex == 4) {
       return SizedBox(
@@ -802,13 +1009,13 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
   }
 }
 
-class reminderContainer extends StatelessWidget {
+class ReminderContainer extends StatelessWidget {
   final String date;
   final String time;
   final String name;
   final String imageUrl;
 
-  const reminderContainer({
+  const ReminderContainer({
     required this.date,
     required this.time,
     required this.name,
@@ -829,7 +1036,7 @@ class reminderContainer extends StatelessWidget {
               color: Color(0xff0A8357),
             ),
             width: 4, // Adjust the width as needed
-            height: 36, // Adjust the height as needed
+            height: 38, // Adjust the height as needed
           ),
           SizedBox(
             width: 8,
@@ -845,34 +1052,45 @@ class reminderContainer extends StatelessWidget {
           SizedBox(
             width: 8,
           ),
-          Flexible(
+          Expanded(
+            flex: 2,
             child: Column(
               children: [
                 Row(
                   children: [
                     CircleAvatar(
-                      radius: 12.0,
+                      radius: 14.0,
                       backgroundImage: AssetImage(imageUrl),
                     ),
-                    Text(
-                      name,
-                      style: TextStyle(color: Colors.black, fontSize: 15),
+                    SizedBox(
+                      width: 6,
+                    ),
+                    Flexible(
+                      child: Text(
+                        name,
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                      ),
                     )
                   ],
                 ),
-                Center(
-                  child: Text(
-                    time,
-                    style: TextStyle(color: Colors.black45),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 33),
+                    child: Text(
+                      time,
+                      style: TextStyle(color: Colors.black45),
+                    ),
                   ),
-                )
+                ),
               ],
             ),
           ),
           SizedBox(
-            width: 15,
+            width: 10,
           ),
-          Flexible(
+          Expanded(
+            flex: 1,
             child: InkWell(
               onTap: () {},
               child: Container(
@@ -899,7 +1117,63 @@ class reminderContainer extends StatelessWidget {
     );
   }
 }
-// void
+
+class CustomListTile extends StatelessWidget {
+  final String name;
+  final String date;
+  final String time;
+  final String amount;
+  final String imageUrl;
+
+  CustomListTile({
+    required this.name,
+    required this.date,
+    required this.time,
+    required this.amount,
+    required this.imageUrl,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(
+        radius: 18.0,
+        backgroundImage: AssetImage(imageUrl),
+      ),
+      title: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            name,
+            style: TextStyle(color: Colors.black, fontSize: 16),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                date,
+                style: TextStyle(color: Colors.black38, fontSize: 12),
+              ),
+              Text(
+                ',',
+                style: TextStyle(color: Colors.black38),
+              ),
+              Text(
+                time,
+                style: TextStyle(color: Colors.black38, fontSize: 12),
+              )
+            ],
+          )
+        ],
+      ),
+      trailing: Text(
+        amount,
+        style: TextStyle(color: Colors.red, fontSize: 16),
+      ),
+    );
+  }
+}
 
 class CustomButton extends StatefulWidget {
   final String text;
