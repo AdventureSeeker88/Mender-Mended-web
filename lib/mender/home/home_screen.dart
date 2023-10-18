@@ -567,7 +567,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black12,
                     blurRadius: 10.0,
@@ -597,13 +597,13 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  reminderContainer(
+                  ReminderContainer(
                     name: 'Snugglebug Session',
                     time: '1:00 - 2:00 PM',
                     date: '23\nOct',
                     imageUrl: 'assets/mender/images1.jpg',
                   ),
-                  reminderContainer(
+                  ReminderContainer(
                     name: 'kai Liu Session',
                     time: '5:00 - 6:00 PM',
                     date: '24\nOct',
@@ -625,132 +625,138 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
     return SizedBox(
       height: size.height,
       width: size.width / 2.8,
-      child: Column(
-        children: [
-          Container(
-            height: 150,
-            width: 500,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Color(0xff82e5c1),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 10.0,
-                  blurStyle: BlurStyle.outer,
-                ),
-              ],
-            ),
-            child: Container(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              // width: size.width * 0.16,
+              // height: size.height * 0.15,
               height: 150,
-              width: 500,
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(65.0),
-                  topLeft: Radius.circular(10.0),
-                  topRight: Radius.circular(10.0),
-                  bottomLeft: Radius.circular(10.0),
+                borderRadius: BorderRadius.circular(10.0),
+                color: const Color(0xff82e5c1),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10.0,
+                    blurStyle: BlurStyle.outer,
+                  )
+                ],
+              ),
+              child: Container(
+                // width: size.width * 0.16,
+                // height: size.height * 0.15,
+                height: 150,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(65.0),
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0),
+                    bottomLeft: Radius.circular(10.0),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: [
+                      const Column(
+                        children: [
+                          Text(
+                            'Total Balance',
+                            style: TextStyle(color: Colors.black54),
+                          ),
+                          SizedBox(height: 20),
+                          Text(
+                            '\$247.52',
+                            style: TextStyle(
+                              fontSize: 35,
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xff05b475),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // const SizedBox(width: 150.0),
+                      const Spacer(),
+                      CustomElevatedButton(title: 'Withdraw', callback: () {}),
+                    ],
+                  ),
                 ),
               ),
-              child: Row(
+            ),
+            const SizedBox(height: 30),
+            Container(
+              // width: 400,
+              height: 600,
+              // color: Colors.white,
+              child: Column(
                 children: [
-                  Column(
+                  Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0, top: 40.0),
-                        child: Text(
-                          'Total Balance',
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 35.0),
-                        child: Text(
-                          '\$247.52',
-                          style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.w900,
-                            color: Color(0xff05b475),
-                          ),
+                      const Text('Last Mended Session'),
+                      const SizedBox(width: 180),
+                      InkWell(
+                        onTap: () {},
+                        child: const Text(
+                          'view all',
+                          style: TextStyle(color: Color(0xff05b475)),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(width: 150.0),
-                  CustomElevatedButton(title: 'Withdraw', callback: () {}),
+                  const SizedBox(height: 15),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount:
+                        3, // Replace with the actual number of items in your list
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          Container(
+                            width: 400,
+                            height: 70,
+                            color: Colors.white,
+                            child: Row(
+                              children: [
+                                const CircleAvatar(
+                                  radius: 25,
+                                  backgroundImage:
+                                      AssetImage('assets/mender/avatar1.jpg'),
+                                ),
+                                const SizedBox(width: 20),
+                                const Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 13.0),
+                                      child: Text('Snugglebug',
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text('Oct 14, 10:24 PM',
+                                        style:
+                                            TextStyle(color: Colors.black38)),
+                                  ],
+                                ),
+                                const SizedBox(width: 140),
+                                Text('-\$15.00',
+                                    style:
+                                        TextStyle(color: Colors.red.shade900)),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                        ],
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
-          ),
-          SizedBox(height: 30),
-          Container(
-            width: 400,
-            height: 600,
-            color: Colors.white,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text('Last Mended Session'),
-                    SizedBox(width: 180),
-                    InkWell(
-                      onTap: () {},
-                      child: Text(
-                        'view all',
-                        style: TextStyle(color: Color(0xff05b475)),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 15),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount:
-                      3, // Replace with the actual number of items in your list
-                  itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      children: [
-                        Container(
-                          width: 400,
-                          height: 70,
-                          color: Colors.white,
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 25,
-                                backgroundImage:
-                                    AssetImage('assets/mender/avatar1.jpg'),
-                              ),
-                              SizedBox(width: 20),
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 13.0),
-                                    child: Text('Snugglebug',
-                                        style: TextStyle(color: Colors.black)),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Text('Oct 14, 10:24 PM',
-                                      style: TextStyle(color: Colors.black38)),
-                                ],
-                              ),
-                              SizedBox(width: 140),
-                              Text('-\$15.00',
-                                  style: TextStyle(color: Colors.red.shade900)),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                      ],
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -802,13 +808,13 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
   }
 }
 
-class reminderContainer extends StatelessWidget {
+class ReminderContainer extends StatelessWidget {
   final String date;
   final String time;
   final String name;
   final String imageUrl;
 
-  const reminderContainer({
+  const ReminderContainer({
     required this.date,
     required this.time,
     required this.name,
@@ -819,33 +825,33 @@ class reminderContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20),
-      margin: EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(left: 20),
+      margin: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: Color(0xff0A8357),
+              color: const Color(0xff0A8357),
             ),
             width: 4, // Adjust the width as needed
             height: 36, // Adjust the height as needed
           ),
-          SizedBox(
+          const SizedBox(
             width: 8,
           ),
           Text(
             date.toUpperCase(),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Color(0xff0A8357),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 8,
           ),
-          Flexible(
+          Expanded(
             child: Column(
               children: [
                 Row(
@@ -854,22 +860,25 @@ class reminderContainer extends StatelessWidget {
                       radius: 12.0,
                       backgroundImage: AssetImage(imageUrl),
                     ),
-                    Text(
-                      name,
-                      style: TextStyle(color: Colors.black, fontSize: 15),
+                    Expanded(
+                      child: Text(
+                        name,
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 15),
+                      ),
                     )
                   ],
                 ),
                 Center(
                   child: Text(
                     time,
-                    style: TextStyle(color: Colors.black45),
+                    style: const TextStyle(color: Colors.black45),
                   ),
                 )
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 15,
           ),
           Flexible(
@@ -981,7 +990,7 @@ class UserContainer extends StatelessWidget {
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Row(
             children: [
               Container(
@@ -996,7 +1005,7 @@ class UserContainer extends StatelessWidget {
                   color: Color(0xff0fbf80),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Container(
