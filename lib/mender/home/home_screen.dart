@@ -16,7 +16,8 @@ class MenderHomeScreen extends StatefulWidget {
 }
 
 class _MenderHomeScreenState extends State<MenderHomeScreen> {
-  int selectedIndex = 1;
+  TextEditingController SearchController = TextEditingController();
+  int selectedIndex = 4;
   List usersList = [
     const UserContainer(
       imageUrl: 'assets/mender/profileimage.png',
@@ -161,7 +162,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: size.height * 0.50,
+                            height: size.height * 0.70,
                           ),
                           Container(
                             padding:
@@ -184,6 +185,9 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                               color: const Color(0xfff5fcf9),
                             ),
                           ),
+                          SizedBox(
+                            height: size.height * 0.03,
+                          ),
                         ],
                       ),
                       getMainWidget(size),
@@ -204,6 +208,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                             ),
                             Flexible(
                               child: Container(
+                                // height: size.height * 0.09,
                                 padding: const EdgeInsets.all(15),
                                 // width: size.width * 0.21,
                                 decoration: BoxDecoration(
@@ -259,7 +264,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                               ),
                             ),
                             SizedBox(
-                              height: size.height * 0.08,
+                              height: size.height * 0.06,
                             ),
                             const Row(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -284,7 +289,10 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                                       color: Colors.black26, fontSize: 13),
                                 ),
                               ],
-                            )
+                            ),
+                            SizedBox(
+                              height: size.height * 0.02,
+                            ),
                           ],
                         ),
                       )
@@ -308,19 +316,6 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CustomButton(text: 'Friends'),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 25),
-                width: 0.5, // Adjust the width as needed
-                height: 20.0, // Adjust the height as needed
-                color: Colors.black,
-              ),
-              const CustomButton(text: 'Popular'),
-            ],
-          ),
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -493,13 +488,14 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
             ),
           ),
           Container(
+            alignment: Alignment.bottomRight,
             padding: EdgeInsets.only(bottom: size.height * 0.03),
             height: 30,
             width: 30,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
               image: const DecorationImage(
-                image: AssetImage('assets/mender/logo.png'),
+                image: AssetImage('assets/mender/plus.png'),
               ),
               boxShadow: const [
                 BoxShadow(
@@ -545,14 +541,32 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
 
   Widget getFlicksWidget(size) {
     return SizedBox(
-      height: size.height,
-      width: size.width / 2.2,
-      child: ListView.builder(
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return getCard(size);
-          }),
-    );
+        height: size.height,
+        width: size.width / 2.2,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CustomButton(text: 'Friends'),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                  width: 0.5, // Adjust the width as needed
+                  height: 20.0, // Adjust the height as needed
+                  color: Colors.black,
+                ),
+                const CustomButton(text: 'Popular'),
+              ],
+            ),
+            Expanded(
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return getCard(size);
+                  }),
+            ),
+          ],
+        ));
   }
 
   Widget getCalendarWidget(size) {
@@ -580,10 +594,10 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                 selectionMode: DateRangePickerSelectionMode.range,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 18,
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 20),
               child: Column(
                 children: [
@@ -609,6 +623,13 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                     date: '24\nOct',
                     imageUrl: 'assets/mender/images2.jpeg',
                   )
+
+                  // reminderContainer(
+                  //   name: 'kai Liu Session',
+                  //   time: '5:00 - 6:00 PM',
+                  //   date: '24\nOct',
+                  //   imageUrl: 'assets/mender/images2.jpeg',
+                  // )
                 ],
               ),
             ),
@@ -619,6 +640,10 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
             //     }),
           ],
         ));
+  }
+
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    // TODO: implement your code here
   }
 
   Widget getWalletWidget(size) {
@@ -761,9 +786,6 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
     );
   }
 
-  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
-    // TODO: implement your code here
-  }
   Widget getMainWidget(size) {
     if (selectedIndex == 0) {
       return getFlicksWidget(size);
@@ -908,7 +930,70 @@ class ReminderContainer extends StatelessWidget {
     );
   }
 }
-// void
+
+class CustomListTile extends StatelessWidget {
+  final String name;
+  final String date;
+  final String time;
+  final String amount;
+  final String imageUrl;
+
+  CustomListTile({
+    required this.name,
+    required this.date,
+    required this.time,
+    required this.amount,
+    required this.imageUrl,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          leading: CircleAvatar(
+            radius: 18.0,
+            backgroundImage: AssetImage(imageUrl),
+          ),
+          title: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: const TextStyle(color: Colors.black, fontSize: 16),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    date,
+                    style: const TextStyle(color: Colors.black38, fontSize: 12),
+                  ),
+                  const Text(
+                    ',',
+                    style: TextStyle(color: Colors.black38),
+                  ),
+                  Text(
+                    time,
+                    style: const TextStyle(color: Colors.black38, fontSize: 12),
+                  )
+                ],
+              )
+            ],
+          ),
+          trailing: Text(
+            amount,
+            style: const TextStyle(color: Colors.red, fontSize: 16),
+          ),
+        ),
+        const SizedBox(
+          height: 6,
+        )
+      ],
+    );
+  }
+}
 
 class CustomButton extends StatefulWidget {
   final String text;
@@ -935,6 +1020,41 @@ class _CustomButtonState extends State<CustomButton> {
         style: TextStyle(
           color: isPressed ? Colors.black : Colors.black.withOpacity(0.3),
           fontWeight: isPressed ? FontWeight.bold : FontWeight.normal,
+          fontSize: 15,
+        ),
+      ),
+    );
+  }
+}
+
+class CustomButton2 extends StatefulWidget {
+  final String text;
+
+  const CustomButton2({super.key, required this.text});
+
+  @override
+  State<CustomButton2> createState() => _CustomButtonState2();
+}
+
+class _CustomButtonState2 extends State<CustomButton2> {
+  bool isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {
+        setState(() {
+          isPressed = !isPressed;
+        });
+      },
+      child: Text(
+        widget.text,
+        style: TextStyle(
+          color: isPressed
+              ? const Color(0xff0A8357)
+              : const Color(0xff0A8357).withOpacity(0.5),
+          fontWeight: isPressed ? FontWeight.bold : FontWeight.normal,
+          fontSize: 15,
         ),
       ),
     );
@@ -993,37 +1113,390 @@ class UserContainer extends StatelessWidget {
           const Spacer(),
           Row(
             children: [
-              Container(
-                padding: const EdgeInsets.all(5),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0xffe6f7f1),
-                ),
-                child: const Icon(
-                  Icons.message_outlined,
-                  size: 18,
-                  color: Color(0xff0fbf80),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xffe6f7f1),
+                  ),
+                  child: const Icon(
+                    Icons.message_outlined,
+                    size: 18,
+                    color: Color(0xff0fbf80),
+                  ),
                 ),
               ),
               const SizedBox(
                 width: 5,
               ),
-              Container(
-                padding: const EdgeInsets.all(5),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0xffe6f7f1),
-                ),
-                child: const Icon(
-                  Icons.call,
-                  size: 18,
-                  color: Color(0xff0fbf80),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xffe6f7f1),
+                  ),
+                  child: const Icon(
+                    Icons.call,
+                    size: 18,
+                    color: Color(0xff0fbf80),
+                  ),
                 ),
               ),
             ],
           ),
         ],
       ),
+    );
+  }
+}
+
+class ClientContainer extends StatelessWidget {
+  final String imageUrl;
+  final String name;
+
+  const ClientContainer({
+    super.key,
+    required this.imageUrl,
+    required this.name,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          // width: MediaQuery.of(context).size.width * 0.21,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.black12,
+            //     blurRadius: 10.0,
+            //     blurStyle: BlurStyle.outer,
+            //   )
+            // ],
+          ),
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(10.0),
+          //   color: Colors.white,
+          //   boxShadow: const [
+          //     BoxShadow(
+          //       color: Colors.black12,
+          //       blurStyle: BlurStyle.outer,
+          //       spreadRadius: 3.0,
+          //       blurRadius: 3.0,
+          //     ),
+          //   ],
+          // ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CircleAvatar(
+                radius: 15.0,
+                backgroundImage: AssetImage(imageUrl),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: Text(
+                  name,
+                  style: TextStyle(
+                    color: Colors.black.withOpacity(0.7),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+              const Spacer(),
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xffe6f7f1),
+                      ),
+                      child: const Icon(
+                        Icons.message_outlined,
+                        size: 18,
+                        color: Color(0xff0fbf80),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: const Color(0xffe6f7f1),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Call Request',
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Color(0xff0fbf80),
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        )
+      ],
+    );
+  }
+}
+
+// class MessageContainer extends StatelessWidget {
+//   final String imageUrl;
+//   final String name;
+//   final String msgtxt;
+//   final String time;
+//
+//   const MessageContainer({
+//     super.key,
+//     required this.imageUrl,
+//     required this.name,
+//     required this.msgtxt,
+//     required this.time,
+//   });
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     var size = MediaQuery.of(context).size;
+//     return Column(
+//       children: [
+//         Container(
+//           padding: const EdgeInsets.all(10),
+//           // width: MediaQuery.of(context).size.width * 0.21,
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(10),
+//             color: Colors.white,
+//           ),
+//
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.start,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               CircleAvatar(
+//                 radius: 15.0,
+//                 backgroundImage: AssetImage(imageUrl),
+//               ),
+//               const SizedBox(
+//                 width: 5,
+//               ),
+//               Column(
+//                 mainAxisAlignment: MainAxisAlignment.start,
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Row(
+//                     children: [
+//                       Text(
+//                         name,
+//                         style: TextStyle(
+//                           color: Colors.black.withOpacity(0.7),
+//                           fontSize: 14,
+//                           fontWeight: FontWeight.w900,
+//                         ),
+//                       ),
+//                       SizedBox(
+//                         width: size.width * 0.09,
+//                       ),
+//                       Text(
+//                         time,
+//                         style: TextStyle(
+//                           color: Colors.black.withOpacity(0.4),
+//                           fontSize: 12,
+//                           fontWeight: FontWeight.w900,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   Row(
+//                     children: [
+//                       Text(
+//                         msgtxt,
+//                         style: TextStyle(
+//                           color: Colors.black.withOpacity(0.4),
+//                           fontSize: 14,
+//                           fontWeight: FontWeight.w900,
+//                         ),
+//                       ),
+//                       SizedBox(
+//                         width: size.width * 0.03,
+//                       ),
+//                       Icon(
+//                         Icons.arrow_forward_ios,
+//                         size: 20,
+//                         color: Color(0xff09BE7D),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               )
+//
+//               // Column(
+//               //   mainAxisAlignment: MainAxisAlignment.start,
+//               //   children: [
+//               //     Row(
+//               //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//               //       children: [
+//               //         Text(
+//               //           name,
+//               //           style: TextStyle(
+//               //             color: Colors.black.withOpacity(0.7),
+//               //             fontSize: 14,
+//               //             fontWeight: FontWeight.w900,
+//               //           ),
+//               //         ),
+//               //         Text(
+//               //           time,
+//               //           style: TextStyle(
+//               //             color: Colors.black.withOpacity(0.4),
+//               //             fontSize: 12,
+//               //             fontWeight: FontWeight.w900,
+//               //           ),
+//               //         ),
+//               //       ],
+//               //     ),
+//               //     Row(
+//               //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               //       children: [
+//               //         Text(
+//               //           msgtxt,
+//               //           style: TextStyle(
+//               //             color: Colors.black.withOpacity(0.4),
+//               //             fontSize: 14,
+//               //             fontWeight: FontWeight.w900,
+//               //           ),
+//               //         ),
+//               //         Icon(
+//               //           Icons.arrow_forward_ios,
+//               //           size: 20,
+//               //           color: Color(0xff09BE7D),
+//               //         )
+//               //       ],
+//               //     )
+//               //   ],
+//               // )
+//             ],
+//           ),
+//         ),
+//         SizedBox(
+//           height: 10,
+//         )
+//       ],
+//     );
+//   }
+// }
+class MessageContainer extends StatelessWidget {
+  final String imageUrl;
+  final String name;
+  final String msgtxt;
+  final String time;
+
+  const MessageContainer({
+    Key? key,
+    required this.imageUrl,
+    required this.name,
+    required this.msgtxt,
+    required this.time,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+          ),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 15.0,
+                backgroundImage: AssetImage(imageUrl),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          name,
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.7),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        Text(
+                          time,
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.4),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            msgtxt,
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.4),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w900,
+                            ),
+                            overflow: TextOverflow.ellipsis, // Handle overflow
+                          ),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                          color: Color(0xff09BE7D),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+      ],
     );
   }
 }
