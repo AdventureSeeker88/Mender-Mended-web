@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:mended_mender/mender/colors.dart';
 import 'package:mended_mender/mender/widgets/balance_card.dart';
@@ -17,6 +18,7 @@ class MenderHomeScreen extends StatefulWidget {
 
 class _MenderHomeScreenState extends State<MenderHomeScreen> {
   TextEditingController SearchController = TextEditingController();
+  late double rating = 0;
   int selectedIndex = 4;
   List usersList = [
     const UserContainer(
@@ -115,11 +117,11 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                   ),
                 ],
               ),
+              // SizedBox(
+              //   height: size.height * 0.04,
+              // ),
               SizedBox(
                 height: size.height * 0.04,
-              ),
-              SizedBox(
-                height: size.height * 0.03,
               ),
               SizedBox(
                 width: size.width / 1.1,
@@ -1124,11 +1126,228 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
     return SizedBox(
       height: size.height,
       width: size.width / 2.2,
-      child: ListView.builder(
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return getCard(size);
-          }),
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Container(
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(30),
+          //     boxShadow: const [
+          //       BoxShadow(
+          //         color: Color(0xff09be7d),
+          //         blurStyle: BlurStyle.outer,
+          //         spreadRadius: 3.0,
+          //         blurRadius: 3.0,
+          //       ),
+          //     ],
+          //   ),
+          //   child: CircleAvatar(
+          //     radius: 30,
+          //     backgroundColor: Color(0xffcbcfd3),
+          //     backgroundImage: AssetImage('assets/mender/images1.jpg'),
+          //   ),
+          // ),
+          // SizedBox(height: 10),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Text(
+          //       'Dr. Harry',
+          //       style: TextStyle(
+          //         color: Colors.black54,
+          //         fontWeight: FontWeight.bold,
+          //         fontSize: 16,
+          //       ),
+          //     ),
+          //     Padding(
+          //       padding: EdgeInsets.only(left: 4),
+          //       child: InkWell(
+          //         onTap: () {},
+          //         child: Icon(Icons.edit, size: 18, color: Color(0xff09be7d)),
+          //       ),
+          //     )
+          //   ],
+          // ),
+          // SizedBox(height: 3),
+          // Text(
+          //   'Licensed professional Counselor, PhD, LPC',
+          //   style: TextStyle(
+          //     color: Color(0xff9d9d9d),
+          //     fontSize: 15,
+          //   ),
+          // ),
+          // SizedBox(height: 10),
+          // RatingStars(
+          //   starCount: 5,
+          //   value: rating, // Set the initial rating.
+          //   starColor: Color(0xffFBAD05),
+          //   animationDuration: Duration(milliseconds: 1000),
+          //
+          //   onValueChanged: (value) {
+          //     setState(() {
+          //       rating = value; // Update the selected rating.
+          //     });
+          //   },
+          // ),
+          // SizedBox(
+          //   height: 30,
+          // ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     InkWell(
+          //       onTap: () {},
+          //       child: Column(
+          //         children: [
+          //           Icon(FontAwesomeIcons.users, color: Color(0xff09be7d)),
+          //           SizedBox(
+          //             height: 3,
+          //           ),
+          //           Text(
+          //             'Buddy List',
+          //             style: TextStyle(color: Color(0xff09be7d)),
+          //           )
+          //         ],
+          //       ),
+          //     ),
+          //     Container(
+          //       margin: const EdgeInsets.symmetric(horizontal: 25),
+          //       width: 1.5, // Adjust the width as needed
+          //       height: 40.0, // Adjust the height as needed
+          //       color: Color(0xff09BE7D),
+          //     ),
+          //     InkWell(
+          //       onTap: () {},
+          //       child: Column(
+          //         children: [
+          //           Icon(Icons.message_outlined, color: Color(0xff09be7d)),
+          //           SizedBox(
+          //             height: 3,
+          //           ),
+          //           Text(
+          //             'Messages',
+          //             style: TextStyle(color: Color(0xff09be7d)),
+          //           )
+          //         ],
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          SizedBox(
+            height: 6,
+          ),
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: Color(0xffcbcfd3),
+            backgroundImage: AssetImage('assets/mender/images1.jpg'),
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          InkWell(
+            onTap: () {},
+            child: Text(
+              'Change photo',
+              style: TextStyle(
+                  fontSize: 12,
+                  decoration: TextDecoration.underline,
+                  color: Color(0xff06CC85)),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          EditProfileWidget(
+            labelText: 'Name',
+            hintText: 'Enter your name',
+            controller: TextEditingController(),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          EditProfileWidget(
+            labelText: 'Email',
+            hintText: 'Enter your Email',
+            controller: TextEditingController(),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          EditProfileWidget(
+            labelText: 'Phone Number',
+            hintText: 'Enter your Phone Number',
+            controller: TextEditingController(),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          EditProfileWidget(
+            labelText: 'Password',
+            hintText: 'Enter your password',
+            controller: TextEditingController(),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0).copyWith(top: 5),
+                child: Text(
+                  'Upload license',
+                  style: TextStyle(color: Color(0xff9d9d9d), fontSize: 12),
+                ),
+              ),
+              Container(
+                height: 40,
+                width: 300,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.black38),
+                    color: Colors.white),
+                child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.cloudArrowUp,
+                          size: 20,
+                          color: Color(0xff01af71),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          'Drag or Drop here',
+                          style: TextStyle(color: Color(0xff01af71)),
+                        )
+                      ],
+                    )),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                'Supportted formates: JPEG,PNG,GIF,PDF ',
+                style: TextStyle(color: Color(0xffbfc4c3), fontSize: 10),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          CustomElevatedButton(title: 'Save', callback: () {})
+        ],
+      ),
+
+      // ListView.builder(
+      //     shrinkWrap: true,
+      //     itemBuilder: (context, index) {
+      //       return getCard(size);
+      //     }),
     );
   }
 }
@@ -1814,6 +2033,64 @@ class MessageContainer extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
+      ],
+    );
+  }
+}
+
+class EditProfileWidget extends StatelessWidget {
+  final String labelText;
+  final String hintText;
+  final TextEditingController controller;
+
+  EditProfileWidget({
+    required this.labelText,
+    required this.hintText,
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0).copyWith(top: 5),
+          child: Text(
+            labelText,
+            style: TextStyle(color: Colors.black54, fontSize: 12),
+          ),
+        ),
+        Container(
+          height: 40,
+          width: 300,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.black26),
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0).copyWith(top: 5),
+            child: TextField(
+              controller: controller,
+              onChanged: (value) {},
+              decoration: InputDecoration(
+                hintText: hintText,
+                hintStyle: TextStyle(fontSize: 14),
+                border: InputBorder.none,
+                suffixIcon: Icon(
+                  Icons.edit,
+                  size: 15,
+                  color: Color(0xff06CC85),
+                ),
+              ),
+            ),
+          ),
+        ),
+        // SizedBox(
+        //   height: 5,
+        // ),
       ],
     );
   }
