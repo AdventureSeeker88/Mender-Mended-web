@@ -7,6 +7,7 @@ import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:mended_mender/mender/colors.dart';
 import 'package:mended_mender/mender/widgets/balance_card.dart';
 import 'package:mended_mender/mender/widgets/top_bar.dart';
+import '../../constants.dart';
 import '../widgets/custom_elevated_button.dart';
 import '../widgets/next_session_widget.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -27,7 +28,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
 
   bool isEditVisible = true;
   late double rating = 0;
-  int selectedIndex = 5;
+  int selectedIndex = 0;
   List usersList = [
     const UserContainer(
       imageUrl: 'assets/mender/profileimage.png',
@@ -157,7 +158,11 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                             height: 10,
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              setState(() {
+                                selectedIndex = 2;
+                              });
+                            },
                             child: const Text(
                               'Go to my wallet',
                               style: TextStyle(
@@ -1357,11 +1362,15 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                         InkWell(
                             onTap: () {
                               setState(() {
-                                isEditVisible = isEditVisible;
+                                // selectedIndex = 5;
+                                // isEditVisible = isEditVisible;
                               });
                             },
                             child: CustomElevatedButton(
-                                title: 'cancel', callback: () {})),
+                                title: 'cancel',
+                                callback: () {
+                                  moveScreen(context, const MenderHomeScreen());
+                                })),
                         SizedBox(
                           width: 4,
                         ),
