@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mended_mender/mended/register/mended_register.dart';
+import 'package:mended_mender/mended/signin/mended_signin.dart';
 import 'package:mended_mender/mender/home/home_screen.dart';
 
 void main() {
@@ -8,7 +10,7 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
   // Define a custom MaterialColor
-  MaterialColor customGreen = MaterialColor(0xff09BE7D, {
+  MaterialColor customGreen = const MaterialColor(0xff09BE7D, {
     50: Color(0xffE1F7ED),
     100: Color(0xffB6EDD8),
     200: Color(0xff84E1C0),
@@ -35,10 +37,11 @@ class MyApp extends StatelessWidget {
         builder: (context, constraints) {
           if (constraints.maxWidth > 900) {
             // If the width is greater than 900, display the web layout
-            return MenderHomeScreen();
+            // return const MenderHomeScreen();
+            return const MendedRegister();
           } else {
             // Otherwise, display the mobile layout
-            return Center(
+            return const Center(
               child: Text("Mobile App"),
             );
           }
