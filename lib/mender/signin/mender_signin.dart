@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:mended_mender/constants.dart';
+import 'package:mended_mender/mender/home/home_screen.dart';
 import 'package:mended_mender/mender/register/mender_signup.dart';
 import 'package:mended_mender/mender/widgets/custom_elevated_button.dart';
 import 'package:mended_mender/mender/widgets/top_bar.dart';
@@ -120,7 +121,10 @@ class _MenderSignInState extends State<MenderSignIn> {
                                 Expanded(
                                   child: CustomElevatedButton(
                                     title: 'Login',
-                                    callback: () {},
+                                    callback: () {
+                                      moveScreen(
+                                          context, const MenderHomeScreen());
+                                    },
                                     width: double.infinity,
                                   ),
                                 ),

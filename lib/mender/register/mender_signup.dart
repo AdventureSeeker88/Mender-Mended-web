@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:mended_mender/constants.dart';
+import 'package:mended_mender/mender/home/home_screen.dart';
 import 'package:mended_mender/mender/signin/mender_signin.dart';
 import 'package:mended_mender/mender/widgets/custom_elevated_button.dart';
 import 'package:mended_mender/mender/widgets/top_bar.dart';
@@ -18,9 +19,7 @@ class _MenderSignUpState extends State<MenderSignUp> {
   TextEditingController passwordController = TextEditingController();
 
   void forgotPassword() async {}
-
   void login() async {}
-
   void signupGoogle() async {}
   void signupFacebook() async {}
   void signupApple() async {}
@@ -120,7 +119,10 @@ class _MenderSignUpState extends State<MenderSignUp> {
                                 Expanded(
                                   child: CustomElevatedButton(
                                     title: 'Sign Up',
-                                    callback: () {},
+                                    callback: () {
+                                      moveScreen(
+                                          context, const MenderHomeScreen());
+                                    },
                                     width: double.infinity,
                                   ),
                                 ),
