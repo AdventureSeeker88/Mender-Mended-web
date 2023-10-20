@@ -19,9 +19,7 @@ class _MenderSignUpState extends State<MenderSignUp> {
   TextEditingController passwordController = TextEditingController();
 
   void forgotPassword() async {}
-
   void login() async {}
-
   void signupGoogle() async {}
   void signupFacebook() async {}
   void signupApple() async {}
