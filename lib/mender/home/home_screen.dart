@@ -6,9 +6,11 @@ import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:mended_mender/mender/colors.dart';
 import 'package:mended_mender/mender/widgets/balance_card.dart';
+import 'package:mended_mender/mender/widgets/balance_card2.dart';
 import 'package:mended_mender/mender/widgets/top_bar.dart';
 import '../../constants.dart';
 import '../widgets/custom_elevated_button.dart';
+import '../widgets/custom_elevated_button2.dart';
 import '../widgets/next_session_widget.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -25,10 +27,12 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController withdrawController = TextEditingController();
 
   bool isEditVisible = true;
+  bool isWalletVisible = true;
   late double rating = 0;
-  int selectedIndex = 0;
+  int selectedIndex = 2;
   List usersList = [
     const UserContainer(
       imageUrl: 'assets/mender/profileimage.png',
@@ -150,29 +154,54 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                           const SizedBox(
                             height: 5,
                           ),
-                          BalanceCard(
+                          Visibility(
+                            visible: [0, 1, 3, 4, 5].contains(selectedIndex),
+                            child: BalanceCard(
                               title: 'Total Balance',
                               totalBalance: '\$224.57',
-                              onButtonPressed: null),
+                              onButtonPressed: null,
+                            ),
+                          ),
+                          Visibility(
+                            visible: selectedIndex == 2,
+                            child: BalanceCard2(
+                              title: 'Total Balance',
+                              totalBalance: '\$224.57',
+                              lastPayment: '\$50',
+                              lastWithdraw: '\$150',
+                            ),
+                          ),
+                          // BalanceCard(
+                          //     title: 'Total Balance',
+                          //     totalBalance: '\$224.57',
+                          //     onButtonPressed: null),
+                          // BalanceCard2(
+                          //     title: 'Total Balance',
+                          //     totalBalance: '\$224.57',
+                          //     lastPayment: '\$50',
+                          //     lastWithdraw: '\$150'),
                           const SizedBox(
                             height: 10,
                           ),
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                selectedIndex = 2;
-                              });
-                            },
-                            child: const Text(
-                              'Go to my wallet',
-                              style: TextStyle(
-                                fontSize: 13.0,
-                                color: Color(0xff09be7d), // Text color
-                                decoration:
-                                    TextDecoration.underline, // Add underline
-                                decorationStyle: TextDecorationStyle
-                                    .solid, // Solid underline style
-                                decorationColor: Color(0xff09be7d),
+                          Visibility(
+                            visible: [0, 1, 3, 4, 5].contains(selectedIndex),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selectedIndex = 2;
+                                });
+                              },
+                              child: const Text(
+                                'Go to my wallet',
+                                style: TextStyle(
+                                  fontSize: 13.0,
+                                  color: Color(0xff09be7d), // Text color
+                                  decoration:
+                                      TextDecoration.underline, // Add underline
+                                  decorationStyle: TextDecorationStyle
+                                      .solid, // Solid underline style
+                                  decorationColor: Color(0xff09be7d),
+                                ),
                               ),
                             ),
                           ),
@@ -320,6 +349,62 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
         ),
       ),
     );
+  }
+
+  Widget getButton(IconData icon, String title, bool isSelected) {
+    Color color = Colors.grey;
+    if (isSelected) {
+      color = MenderColors.primaryColor;
+    }
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            size: 20,
+            color: color,
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          Text(
+            title,
+            style: TextStyle(color: color, fontSize: 18),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget getFlicksWidget(size) {
+    return SizedBox(
+        height: size.height,
+        width: size.width / 2.4,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CustomButton(text: 'Friends'),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                  width: 0.5, // Adjust the width as needed
+                  height: 20.0, // Adjust the height as needed
+                  color: Colors.black,
+                ),
+                const CustomButton(text: 'Popular'),
+              ],
+            ),
+            Expanded(
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return getCard(size);
+                  }),
+            ),
+          ],
+        ));
   }
 
   Widget getCard(
@@ -528,62 +613,6 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
     );
   }
 
-  Widget getButton(IconData icon, String title, bool isSelected) {
-    Color color = Colors.grey;
-    if (isSelected) {
-      color = MenderColors.primaryColor;
-    }
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            size: 20,
-            color: color,
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          Text(
-            title,
-            style: TextStyle(color: color, fontSize: 18),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget getFlicksWidget(size) {
-    return SizedBox(
-        height: size.height,
-        width: size.width / 2.2,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const CustomButton(text: 'Friends'),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 25),
-                  width: 0.5, // Adjust the width as needed
-                  height: 20.0, // Adjust the height as needed
-                  color: Colors.black,
-                ),
-                const CustomButton(text: 'Popular'),
-              ],
-            ),
-            Expanded(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return getCard(size);
-                  }),
-            ),
-          ],
-        ));
-  }
-
   Widget getCalendarWidget(size) {
     return SizedBox(
         height: size.height,
@@ -683,224 +712,374 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
       width: size.width / 2.8,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            width: size.width / 3,
-            height: size.height * 0.17,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Color(0xff82e5c1),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 10.0,
-                  blurStyle: BlurStyle.outer,
-                )
-              ],
-            ),
-            child: Container(
-              width: size.width / 3,
-              height: size.height * 0.17,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(65.0),
-                  topLeft: Radius.circular(10.0),
-                  topRight: Radius.circular(10.0),
-                  bottomLeft: Radius.circular(10.0),
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(right: 13),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Text(
-                            'Total Balance',
-                            style: TextStyle(color: Colors.black54),
+          Visibility(
+            visible: isWalletVisible,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: size.width / 3,
+                  height: size.height * 0.17,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Color(0xff82e5c1),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 10.0,
+                        blurStyle: BlurStyle.outer,
+                      )
+                    ],
+                  ),
+                  child: Container(
+                    width: size.width / 3,
+                    height: size.height * 0.17,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(65.0),
+                        topLeft: Radius.circular(10.0),
+                        topRight: Radius.circular(10.0),
+                        bottomLeft: Radius.circular(10.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text(
+                                  'Total Balance',
+                                  style: TextStyle(color: Colors.black54),
+                                ),
+                              ),
+                              SizedBox(height: 2),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 13, bottom: 8),
+                                child: Text(
+                                  '\$224.57',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w900,
+                                    color: Color(0xff05b475),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        SizedBox(height: 2),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 13, bottom: 8),
-                          child: Text(
-                            '\$224.57',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xff05b475),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                isWalletVisible = !isWalletVisible;
+                              });
+                            },
+                            child: Container(
+                              height: size.height * 0.04,
+                              width: size.width * 0.09,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 10.0,
+                                    blurStyle: BlurStyle.outer,
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(50),
+                                color: const Color(0xff09BE7D),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Withdraw',
+                                  style: TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
-                          ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: size.height * 0.03,
+                ),
+                SizedBox(
+                  width: size.width / 3.5,
+                  // padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Last Mended Sessions',
+                              style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              child: Text(
+                                'View All',
+                                style: TextStyle(
+                                    color: Color(0xff09BE7D),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                          ],
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height:
+                                    400, // Set your desired fixed height here
+                                width: size.width / 3.5,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      18, // Replace with the actual number of items in your list
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return CustomListTile(
+                                      name: 'John Doe',
+                                      date: 'Oct 14',
+                                      time: '10:24 AM',
+                                      amount: '-\$15.00',
+                                      imageUrl: 'assets/mender/images1.jpg',
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+
+                        // Container(
+                        //   // padding: EdgeInsets.only(left: 20),
+                        //   child: Row(
+                        //     children: [
+                        //       CircleAvatar(
+                        //         radius: 18.0,
+                        //         backgroundImage:
+                        //             AssetImage('assets/mender/images1.jpg'),
+                        //       ),
+                        //       SizedBox(
+                        //         width: 8,
+                        //       ),
+                        //       Expanded(
+                        //         child: const Column(
+                        //           mainAxisAlignment: MainAxisAlignment.start,
+                        //           crossAxisAlignment: CrossAxisAlignment.start,
+                        //           children: [
+                        //             Text(
+                        //               'name',
+                        //               style: TextStyle(
+                        //                   color: Colors.black, fontSize: 16),
+                        //             ),
+                        //             Row(
+                        //               mainAxisAlignment: MainAxisAlignment.start,
+                        //               children: [
+                        //                 Text(
+                        //                   'date',
+                        //                   style: TextStyle(
+                        //                       color: Colors.black38, fontSize: 12),
+                        //                 ),
+                        //                 Text(
+                        //                   ',',
+                        //                   style: TextStyle(color: Colors.black38),
+                        //                 ),
+                        //                 Text(
+                        //                   'time',
+                        //                   style: TextStyle(
+                        //                       color: Colors.black38, fontSize: 12),
+                        //                 )
+                        //               ],
+                        //             )
+                        //           ],
+                        //         ),
+                        //       ),
+                        //       Spacer(),
+                        //       Expanded(
+                        //           child: const Text(
+                        //         'amount',
+                        //         style: TextStyle(color: Colors.red, fontSize: 16),
+                        //       ))
+                        //     ],
+                        //   ),
+                        // )
+                        // ListView.builder(
+                        //   shrinkWrap: true,
+                        //   itemCount:
+                        //       2, // Replace with the actual number of items in your list
+                        //   itemBuilder: (BuildContext context, int index) {
+                        //     return LastMendedContainer(
+                        //         date: 'Oct 14',
+                        //         time: '10:24 AM',
+                        //         amount: '-\$15.00',
+                        //         name: 'Joyjammer',
+                        //         imageUrl: 'assets/mender/images1.jpg');
+                        //   },
+                        // ),
                       ],
                     ),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: size.height * 0.04,
-                        width: size.width * 0.09,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 10.0,
-                              blurStyle: BlurStyle.outer,
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(50),
-                          color: const Color(0xff09BE7D),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'Withdraw',
-                            style: TextStyle(
-                                letterSpacing: 1,
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
-          SizedBox(
-            height: size.height * 0.03,
-          ),
-          SizedBox(
-            width: size.width / 3.5,
-            // padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Center(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Last Mended Sessions',
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
+          Visibility(
+            visible: !isWalletVisible,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: size.width / 3,
+                  height: size.height * 0.07,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: Colors.black12),
+                      color: Colors.white),
+                  child: ListTile(
+                    leading: Text('Current balance ',
+                        style: TextStyle(color: Colors.black87, fontSize: 15)),
+                    trailing: RichText(
+                      text: TextSpan(
+                        style: DefaultTextStyle.of(context)
+                            .style, // Default text style
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '\$',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black54,
+                              fontSize: 20.0,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '224.57',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black54,
+                              fontSize: 20.0,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                        ],
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: Text(
-                          'View All',
-                          style: TextStyle(
-                              color: Color(0xff09BE7D),
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: size.height * 0.02,
+                ),
+                Text(
+                  'Enter the amount you want to withdraw ',
+                  style: TextStyle(color: Colors.black45, fontSize: 18),
+                ),
+                SizedBox(
+                  height: size.height * 0.01,
+                ),
+                Container(
+                    width: size.width / 3,
+                    height: size.height * 0.06,
+                    child: TextField(
+                      controller: withdrawController,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                          hintText: '\$80.00',
+                          hintStyle:
+                              TextStyle(color: Colors.black38, fontSize: 25)),
+                    )),
+                SizedBox(
+                  height: size.height * 0.008,
+                ),
+                RichText(
+                  text: TextSpan(
+                    style: DefaultTextStyle.of(context)
+                        .style, // Default text style
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'Commission',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black54,
+                          fontSize: 15.0,
+                          decoration: TextDecoration.none,
                         ),
+                      ),
+                      TextSpan(
+                        text: ' ',
+                        style: TextStyle(
+                          decoration: TextDecoration.none,
+                        ),
+                      ), // Add space between text spans using TextSpan
+
+                      TextSpan(
+                        text: '\$5',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            decoration: TextDecoration.none,
+                            fontSize: 17.0),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 400, // Set your desired fixed height here
-                          width: size.width / 3.5,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount:
-                                18, // Replace with the actual number of items in your list
-                            itemBuilder: (BuildContext context, int index) {
-                              return CustomListTile(
-                                name: 'John Doe',
-                                date: 'Oct 14',
-                                time: '10:24 AM',
-                                amount: '-\$15.00',
-                                imageUrl: 'assets/mender/images1.jpg',
-                              );
-                            },
-                          ),
-                        ),
-                      ],
+                ),
+                Text(
+                  '(is constant and amounts to 5%)',
+                  style: TextStyle(color: Colors.black54),
+                ),
+                SizedBox(
+                  height: size.height * 0.04,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.info_outlined,
+                      color: Colors.black45,
                     ),
-                  )
-
-                  // Container(
-                  //   // padding: EdgeInsets.only(left: 20),
-                  //   child: Row(
-                  //     children: [
-                  //       CircleAvatar(
-                  //         radius: 18.0,
-                  //         backgroundImage:
-                  //             AssetImage('assets/mender/images1.jpg'),
-                  //       ),
-                  //       SizedBox(
-                  //         width: 8,
-                  //       ),
-                  //       Expanded(
-                  //         child: const Column(
-                  //           mainAxisAlignment: MainAxisAlignment.start,
-                  //           crossAxisAlignment: CrossAxisAlignment.start,
-                  //           children: [
-                  //             Text(
-                  //               'name',
-                  //               style: TextStyle(
-                  //                   color: Colors.black, fontSize: 16),
-                  //             ),
-                  //             Row(
-                  //               mainAxisAlignment: MainAxisAlignment.start,
-                  //               children: [
-                  //                 Text(
-                  //                   'date',
-                  //                   style: TextStyle(
-                  //                       color: Colors.black38, fontSize: 12),
-                  //                 ),
-                  //                 Text(
-                  //                   ',',
-                  //                   style: TextStyle(color: Colors.black38),
-                  //                 ),
-                  //                 Text(
-                  //                   'time',
-                  //                   style: TextStyle(
-                  //                       color: Colors.black38, fontSize: 12),
-                  //                 )
-                  //               ],
-                  //             )
-                  //           ],
-                  //         ),
-                  //       ),
-                  //       Spacer(),
-                  //       Expanded(
-                  //           child: const Text(
-                  //         'amount',
-                  //         style: TextStyle(color: Colors.red, fontSize: 16),
-                  //       ))
-                  //     ],
-                  //   ),
-                  // )
-                  // ListView.builder(
-                  //   shrinkWrap: true,
-                  //   itemCount:
-                  //       2, // Replace with the actual number of items in your list
-                  //   itemBuilder: (BuildContext context, int index) {
-                  //     return LastMendedContainer(
-                  //         date: 'Oct 14',
-                  //         time: '10:24 AM',
-                  //         amount: '-\$15.00',
-                  //         name: 'Joyjammer',
-                  //         imageUrl: 'assets/mender/images1.jpg');
-                  //   },
-                  // ),
-                ],
-              ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'minimum withdrawal amount is \$10',
+                      style: TextStyle(color: Colors.black45, fontSize: 15),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: size.height * 0.07,
+                ),
+                CustomElevatedButton2(title: 'Withdraw \$80', callback: () {}),
+                CustomElevatedButton2(
+                    title: 'Cancel',
+                    callback: () {
+                      moveScreen(context, const MenderHomeScreen());
+                    })
+              ],
             ),
           ),
         ],
@@ -1123,7 +1302,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
   Widget getProfileWidget(size) {
     return SizedBox(
       height: size.height,
-      width: size.width / 2.2,
+      width: size.width / 2.4,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -1384,12 +1563,6 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
           ),
         ],
       ),
-
-      // ListView.builder(
-      //     shrinkWrap: true,
-      //     itemBuilder: (context, index) {
-      //       return getCard(size);
-      //     }),
     );
   }
 
