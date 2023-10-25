@@ -28,14 +28,25 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController withdrawController = TextEditingController();
+  TextEditingController calenderTitleController = TextEditingController();
 
+  String selectedRepeat = 'Never';
+  String selectedHour = '1';
+  String selectedMinute = '00';
+  String selectedAmPm = 'AM';
+  String selectedHour2 = '1';
+  String selectedMinute2 = '00';
+  String selectedAmPm2 = 'AM';
+  String selectedTime = 'Starts';
+  DateTime? selectedDate;
   bool isEditVisible = true;
   bool isWalletVisible = true;
+  bool isCalenderVisible = true;
   late double rating = 0;
-  int selectedIndex = 2;
+  int selectedIndex = 1;
   List usersList = [
     const UserContainer(
-      imageUrl: 'assets/mender/profileimage.png',
+      imageUrl: 'assets/mender/images3.jpeg',
       name: 'Ramisha Rasheed',
     ),
     const UserContainer(
@@ -380,7 +391,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
   Widget getFlicksWidget(size) {
     return SizedBox(
         height: size.height,
-        width: size.width / 2.4,
+        width: size.width / 2.6,
         child: Column(
           children: [
             Row(
@@ -416,197 +427,209 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              boxShadow: const [
-                // BoxShadow(
-                //   color: Colors.black38,
-                //   blurStyle: BlurStyle.outer,
-                //   blurRadius: 8,
-                //   spreadRadius: 2.0,
-                // ),
-              ],
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+          Stack(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  boxShadow: const [
+                    // BoxShadow(
+                    //   color: Colors.black38,
+                    //   blurStyle: BlurStyle.outer,
+                    //   blurRadius: 8,
+                    //   spreadRadius: 2.0,
+                    // ),
+                  ],
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CircleAvatar(
-                      radius: 15.0,
-                      backgroundImage:
-                          AssetImage('assets/mender/profileimage.png'),
-                    ),
-                    const SizedBox(
-                      width: 3,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 5),
-                      child: Text(
-                        'Aria',
-                        style: TextStyle(
-                            color: Colors.black38,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w900),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 3,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 5),
-                      child: Image(
-                        height: 20,
-                        width: 20,
-                        image: AssetImage('assets/mender/stars.png'),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: InkWell(
-                        onTap: () {},
-                        child: const FaIcon(
-                          FontAwesomeIcons.userPlus,
-                          color: Color(0xff82e5c1),
-                          size: 15,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                // Padding(
-                //   padding:
-                //       const EdgeInsets.symmetric(vertical: 10),
-                //   child: Container(
-                //     // height: size,
-                //     width: size.width / 3.2,
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(15.0),
-                //       color: Colors.green,
-                //       image: const DecorationImage(
-                //           image: AssetImage(
-                //               'assets/mender/beachview.jpg'),
-                //           fit: BoxFit.cover),
-                //     ),
-                //   ),
-                // ),
-                Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          "https://hips.hearstapps.com/hmg-prod/images/img-1484-jpg-649644d3c1386.jpg?crop=0.571xw:0.762xh;0.240xw,0.195xh&resize=1200:*",
-                      width: size.width,
-                    )),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        InkWell(
-                            onTap: () {},
-                            child: const FaIcon(
-                              FontAwesomeIcons.heart,
-                              size: 22.0,
-                              color: Color(0xff2dbfb4),
-                            )),
-                        const SizedBox(
-                          width: 15,
+                        const CircleAvatar(
+                          radius: 15.0,
+                          backgroundImage:
+                              AssetImage('assets/mender/images4.jpeg'),
                         ),
-                        InkWell(
+                        const SizedBox(
+                          width: 3,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 5),
+                          child: Text(
+                            'Aria',
+                            style: TextStyle(
+                                color: Colors.black38,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w900),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 3,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 5),
+                          child: Image(
+                            height: 20,
+                            width: 20,
+                            image: AssetImage('assets/mender/stars.png'),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 6,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: InkWell(
                             onTap: () {},
                             child: const FaIcon(
-                              FontAwesomeIcons.message,
-                              size: 19.0,
-                              color: Color(0xff2dbfb4),
-                            )),
+                              FontAwesomeIcons.userPlus,
+                              color: Color(0xff82e5c1),
+                              size: 15,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    InkWell(
-                      onTap: () {},
-                      child: const FaIcon(
-                        FontAwesomeIcons.shareFromSquare,
-                        size: 20.0,
-                        color: Color(0xff2dbfb4),
+                    // Padding(
+                    //   padding:
+                    //       const EdgeInsets.symmetric(vertical: 10),
+                    //   child: Container(
+                    //     // height: size,
+                    //     width: size.width / 3.2,
+                    //     decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(15.0),
+                    //       color: Colors.green,
+                    //       image: const DecorationImage(
+                    //           image: AssetImage(
+                    //               'assets/mender/beachview.jpg'),
+                    //           fit: BoxFit.cover),
+                    //     ),
+                    //   ),
+                    // ),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              "https://hips.hearstapps.com/hmg-prod/images/img-1484-jpg-649644d3c1386.jpg?crop=0.571xw:0.762xh;0.240xw,0.195xh&resize=1200:*",
+                          width: size.width,
+                          height: size.width * 0.3,
+                        )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            InkWell(
+                                onTap: () {},
+                                child: const FaIcon(
+                                  FontAwesomeIcons.heart,
+                                  size: 22.0,
+                                  color: Color(0xff2dbfb4),
+                                )),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            InkWell(
+                                onTap: () {},
+                                child: const FaIcon(
+                                  FontAwesomeIcons.message,
+                                  size: 19.0,
+                                  color: Color(0xff2dbfb4),
+                                )),
+                          ],
+                        ),
+                        InkWell(
+                          onTap: () {},
+                          child: const FaIcon(
+                            FontAwesomeIcons.shareFromSquare,
+                            size: 20.0,
+                            color: Color(0xff2dbfb4),
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    RichText(
+                      text: const TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '741,368',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black54,
+                            ),
+                          ),
+                          TextSpan(
+                            text: ' views',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
                       ),
-                    )
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Text(
+                      '#beautifulday #soundcheck #stressrelie',
+                      style: TextStyle(color: Colors.black54, fontSize: 12),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Text(
+                      'view all 13384 comments',
+                      style: TextStyle(color: Colors.black26, fontSize: 10),
+                    ),
+                    const SizedBox(
+                      height: 7,
+                    ),
+                    const Text(
+                      'Add a comment...',
+                      style: TextStyle(color: Colors.black38, fontSize: 12),
+                    ),
                   ],
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
-                RichText(
-                  text: const TextSpan(
-                    children: [
-                      TextSpan(
-                        text: '741,368',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.black54,
-                        ),
+              ),
+              Positioned(
+                bottom: size.height * 0.0,
+                right: 0,
+                child: InkWell(
+                  onTap: () {},
+                  child: Container(
+                    // alignment: Alignment.bottomRight,
+                    padding: EdgeInsets.only(bottom: size.height * 0.03),
+                    height: 25,
+                    width: 25,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      image: const DecorationImage(
+                        image: AssetImage('assets/mender/plus.png'),
                       ),
-                      TextSpan(
-                        text: ' views',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.black54,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black38,
+                          blurStyle: BlurStyle.outer,
+                          blurRadius: 4,
+                          spreadRadius: 3.0,
                         ),
-                      ),
-                    ],
+                      ],
+                      color: const Color(0xfff5fcf9),
+                    ),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Text(
-                  '#beautifulday #soundcheck #stressrelie',
-                  style: TextStyle(color: Colors.black54, fontSize: 12),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Text(
-                  'view all 13384 comments',
-                  style: TextStyle(color: Colors.black26, fontSize: 10),
-                ),
-                const SizedBox(
-                  height: 7,
-                ),
-                const Text(
-                  'Add a comment...',
-                  style: TextStyle(color: Colors.black38, fontSize: 12),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            alignment: Alignment.bottomRight,
-            padding: EdgeInsets.only(bottom: size.height * 0.03),
-            height: 30,
-            width: 30,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              image: const DecorationImage(
-                image: AssetImage('assets/mender/plus.png'),
               ),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black38,
-                  blurStyle: BlurStyle.outer,
-                  blurRadius: 4,
-                  spreadRadius: 3.0,
-                ),
-              ],
-              color: const Color(0xfff5fcf9),
-            ),
+            ],
           ),
         ],
       ),
@@ -621,78 +644,477 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 10.0,
-                    blurStyle: BlurStyle.outer,
-                  )
-                ],
-              ),
-              child: SfDateRangePicker(
-                onSelectionChanged: _onSelectionChanged,
-                selectionMode: DateRangePickerSelectionMode.range,
-              ),
-            ),
-            SizedBox(
-              height: 18,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      '23 October 2023',
-                      style: TextStyle(color: Colors.black38, fontSize: 16),
+            Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 10.0,
+                        blurStyle: BlurStyle.outer,
+                      )
+                    ],
+                  ),
+                  child: SfDateRangePicker(
+                    onSelectionChanged: _onSelectionChanged,
+                    selectionMode: DateRangePickerSelectionMode.single,
+                  ),
+                ),
+                Positioned(
+                  top: size.height * 0.0,
+                  right: 0, // Adjust the right position as needed
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        isCalenderVisible = !isCalenderVisible;
+                      });
+                    },
+                    child: Container(
+                      height: 20,
+                      width: 17,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/mender/plus.png'),
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black38,
+                            blurStyle: BlurStyle.outer,
+                            blurRadius: 4,
+                            spreadRadius: 3.0,
+                          ),
+                        ],
+                        color: const Color(0xfff5fcf9),
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 200, // Set your desired fixed height here
-                          width: size.width / 2.8,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount:
-                                15, // Replace with the actual number of items in your list
-                            itemBuilder: (BuildContext context, int index) {
-                              return ReminderContainer(
-                                name: 'Snugglebug Session',
-                                time: '1:00 - 2:00 PM',
-                                date: '23\nOct',
-                                imageUrl: 'assets/mender/images1.jpg',
-                              );
-                            },
+                ),
+              ],
+            ),
+
+            SizedBox(
+              height: 12,
+            ),
+            Visibility(
+              visible: isCalenderVisible,
+              child: Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        '23 October 2023',
+                        style: TextStyle(color: Colors.black38, fontSize: 16),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 250, // Set your desired fixed height here
+                            width: size.width / 2.8,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount:
+                                  15, // Replace with the actual number of items in your list
+                              itemBuilder: (BuildContext context, int index) {
+                                return ReminderContainer(
+                                  name: 'Snugglebug Session',
+                                  time: '1:00 - 2:00 PM',
+                                  date: '23\nOct',
+                                  imageUrl: 'assets/mender/images1.jpg',
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(
+                      height: 10,
+                    )
+
+                    // reminderContainer(
+                    //   name: 'kai Liu Session',
+                    //   time: '5:00 - 6:00 PM',
+                    //   date: '24\nOct',
+                    //   imageUrl: 'assets/mender/images2.jpeg',
+                    // )
+                  ],
+                ),
+              ),
+            ),
+            Visibility(
+              visible: !isCalenderVisible,
+              child: Padding(
+                padding: EdgeInsets.only(left: 40),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Client',
+                      style: TextStyle(
+                          letterSpacing: 1.5,
+                          fontSize: 14,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    InkWell(
+                      hoverColor: Colors.transparent,
+                      onTap: () {},
+                      child: Container(
+                        margin: EdgeInsets.only(top: 4),
+                        width: 40, // Adjust the width and height as needed
+                        height: 40,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors
+                              .transparent, // Transparent circle avatar color
+                          border: Border.all(
+                            color: Color(0xffB4C6EBB2), // Black border color
+                            width: 0.5, // Adjust the border width as needed
                           ),
                         ),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          radius: 20,
+                          child: Icon(
+                            Icons.add,
+                            size: 20,
+                            color: Color(0xff09BE7D),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 7,
+                    ),
+                    Text(
+                      'Title',
+                      style: TextStyle(
+                          letterSpacing: 1.5,
+                          fontSize: 14,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 4, bottom: 8),
+                      width: size.width / 3.51,
+                      height: size.height / 16,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color(0xffB4C6EBB2),
+                          width: 1.0, // Adjust the border width as needed
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: TextField(
+                        controller: calenderTitleController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none, // Remove the underline
+                          hintText: '', // Remove the hint text
+                        ),
+                      ),
+                    ),
+                    Text(
+                      'Time',
+                      style: TextStyle(
+                          letterSpacing: 1.5,
+                          fontSize: 14,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 4, bottom: 2),
+                      width: size.width / 3.51,
+                      height: size.height / 15,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color(0xffB4C6EBB2),
+                          width: 1.0, // Adjust the border width as needed
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: ListTile(
+                        leading: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.access_time,
+                              color: Colors.black54,
+                            ),
+                            Text(
+                              'Starts',
+                              style: TextStyle(
+                                  color: Colors.black54, fontSize: 12),
+                            )
+                          ],
+                        ),
+                        title: Row(
+                          children: [
+                            // Dropdown for Hours (1-12)
+                            Expanded(
+                              child: DropdownButton<String>(
+                                focusColor: Colors.transparent,
+                                value: selectedHour,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedHour = newValue!;
+                                  });
+                                },
+                                underline: Container(),
+                                items: List.generate(12, (index) {
+                                  final hour = (index + 1).toString();
+                                  return DropdownMenuItem<String>(
+                                    value: hour,
+                                    child: Text(hour),
+                                  );
+                                }),
+                              ),
+                            ),
+
+                            // Dropdown for Minutes (0-59)
+                            Expanded(
+                              child: DropdownButton<String>(
+                                focusColor: Colors.transparent,
+                                value: selectedMinute,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedMinute = newValue!;
+                                  });
+                                },
+                                underline: Container(),
+                                items: List.generate(60, (index) {
+                                  final minute =
+                                      index.toString().padLeft(2, '0');
+                                  return DropdownMenuItem<String>(
+                                    value: minute,
+                                    child: Text(minute),
+                                  );
+                                }),
+                              ),
+                            ),
+
+                            // Dropdown for AM/PM
+                            Expanded(
+                              child: DropdownButton<String>(
+                                focusColor: Colors.transparent,
+                                value: selectedAmPm,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedAmPm = newValue!;
+                                  });
+                                },
+                                underline: Container(),
+                                items: ['AM', 'PM']
+                                    .map<DropdownMenuItem<String>>((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 4, bottom: 2),
+                      width: size.width / 3.51,
+                      height: size.height / 15,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color(0xffB4C6EBB2),
+                          width: 1.0, // Adjust the border width as needed
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: ListTile(
+                        leading: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.access_time,
+                              color: Colors.black54,
+                            ),
+                            Text(
+                              'End',
+                              style: TextStyle(
+                                  color: Colors.black54, fontSize: 12),
+                            )
+                          ],
+                        ),
+                        title: Row(
+                          children: [
+                            // Dropdown for Hours (1-12)
+                            Expanded(
+                              child: DropdownButton<String>(
+                                focusColor: Colors.transparent,
+                                value: selectedHour2,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedHour2 = newValue!;
+                                  });
+                                },
+                                underline: Container(),
+                                items: List.generate(12, (index) {
+                                  final hour = (index + 1).toString();
+                                  return DropdownMenuItem<String>(
+                                    value: hour,
+                                    child: Text(hour),
+                                  );
+                                }),
+                              ),
+                            ),
+
+                            // Dropdown for Minutes (0-59)
+                            Expanded(
+                              child: DropdownButton<String>(
+                                focusColor: Colors.transparent,
+                                value: selectedMinute2,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedMinute2 = newValue!;
+                                  });
+                                },
+                                underline: Container(),
+                                items: List.generate(60, (index) {
+                                  final minute =
+                                      index.toString().padLeft(2, '0');
+                                  return DropdownMenuItem<String>(
+                                    value: minute,
+                                    child: Text(minute),
+                                  );
+                                }),
+                              ),
+                            ),
+
+                            // Dropdown for AM/PM
+                            Expanded(
+                              child: DropdownButton<String>(
+                                focusColor: Colors.transparent,
+                                value: selectedAmPm2,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedAmPm2 = newValue!;
+                                  });
+                                },
+                                underline: Container(),
+                                items: ['AM', 'PM']
+                                    .map<DropdownMenuItem<String>>((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Text(
+                      'Repeat',
+                      style: TextStyle(
+                          letterSpacing: 1.5,
+                          fontSize: 14,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 7,
+                    ),
+                    Container(
+                      width: size.width / 3.51,
+                      height: size.height / 17,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color(0xffB4C6EBB2),
+                          width: 1.0, // Adjust the border width as needed
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: ListTile(
+                        leading: Expanded(
+                          child: DropdownButton<String>(
+                            focusColor: Colors.transparent,
+                            value: selectedRepeat,
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                selectedRepeat = newValue!;
+                              });
+                            },
+                            underline: Container(),
+                            items: [
+                              'Never',
+                              'Every day',
+                              'Every week',
+                              'Every two weeks',
+                              'Every month',
+                              'Every year'
+                            ].map<DropdownMenuItem<String>>((value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 2,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                            onTap: () {
+                              // setState(() {
+                              //   // selectedIndex = 5;
+                              //   // isEditVisible = isEditVisible;
+                              // });
+                            },
+                            child: CustomElevatedButton(
+                                title: 'cancel',
+                                callback: () {
+                                  moveScreen(context, const MenderHomeScreen());
+                                })),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        CustomElevatedButton(title: 'Add', callback: () {})
                       ],
                     ),
-                  ),
-
-                  const SizedBox(
-                    height: 10,
-                  )
-
-                  // reminderContainer(
-                  //   name: 'kai Liu Session',
-                  //   time: '5:00 - 6:00 PM',
-                  //   date: '24\nOct',
-                  //   imageUrl: 'assets/mender/images2.jpeg',
-                  // )
-                ],
+                  ],
+                ),
               ),
-            ),
+              // Container(
+              //   child: Text(
+              //     selectedDate != null
+              //         ? 'Selected Date: ${selectedDate!.toLocal()}'
+              //         : 'No date selected',
+              //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              //   ),
+              // ),
+            )
+
             // ListView.builder(
             //     shrinkWrap: true,
             //     itemBuilder: (context, index) {
@@ -703,7 +1125,11 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
   }
 
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
-    // TODO: implement your code here
+    if (args.value is DateTime) {
+      // Update the selectedDate variable with the selected date
+      selectedDate = args.value;
+      // Now you can use the selectedDate variable to display the selected date in a Text widget or wherever you need it.
+    }
   }
 
   Widget getWalletWidget(size) {
@@ -1165,7 +1591,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 400, // Set your desired fixed height here
+                  height: 450, // Set your desired fixed height here
                   width: size.width / 3.3,
                   child: ListView.builder(
                     itemCount:
@@ -1261,7 +1687,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 400, // Set your desired fixed height here
+                  height: 450, // Set your desired fixed height here
                   width: size.width / 3.3,
                   child: ListView.builder(
                     itemCount:
