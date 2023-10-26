@@ -202,8 +202,8 @@ class _MenderSignInState extends State<MenderSignIn> {
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                TextButton(
-                                    onPressed: () {
+                                InkWell(
+                                    onTap: () {
                                       moveScreen(context, const MenderSignUp());
                                     },
                                     child: const Text(

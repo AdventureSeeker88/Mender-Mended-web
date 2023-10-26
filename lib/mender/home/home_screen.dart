@@ -71,306 +71,331 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
     var size = MediaQuery.of(context).size;
     print(size.width);
 
-    return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage("assets/mender/main_background.png"))),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TopBar(
-                    row: [
-                      const Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = 0;
-                          });
-                        },
-                        child: getButton(
-                            Icons.play_circle, "Flicks", selectedIndex == 0),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = 1;
-                          });
-                        },
-                        child: getButton(Icons.calendar_month, "Calendar",
-                            selectedIndex == 1),
-                      ),
-                      GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedIndex = 2;
-                            });
-                          },
-                          child: getButton(
-                              Icons.wallet, "Wallet", selectedIndex == 2)),
-                      GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedIndex = 3;
-                            });
-                          },
-                          child: getButton(
-                              Icons.group, "Client list", selectedIndex == 3)),
-                      GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedIndex = 4;
-                            });
-                          },
-                          child: getButton(
-                              Icons.message, "Messages", selectedIndex == 4)),
-                      GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedIndex = 5;
-                            });
-                          },
-                          child: getButton(
-                              Icons.person, "Profile", selectedIndex == 5)),
-                    ],
-                  ),
-                ],
-              ),
-              // SizedBox(
-              //   height: size.height * 0.04,
-              // ),
-              SizedBox(
-                height: size.height * 0.04,
-              ),
-              SizedBox(
-                width: size.width / 1.1,
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Your balance',
-                            style: TextStyle(color: Colors.black45),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Visibility(
-                            visible: [0, 1, 3, 4, 5].contains(selectedIndex),
-                            child: BalanceCard(
-                              title: 'Total Balance',
-                              totalBalance: '\$224.57',
-                              onButtonPressed: null,
-                            ),
-                          ),
-                          Visibility(
-                            visible: selectedIndex == 2,
-                            child: BalanceCard2(
-                              title: 'Total Balance',
-                              totalBalance: '\$224.57',
-                              lastPayment: '\$50',
-                              lastWithdraw: '\$150',
-                            ),
-                          ),
-                          // BalanceCard(
-                          //     title: 'Total Balance',
-                          //     totalBalance: '\$224.57',
-                          //     onButtonPressed: null),
-                          // BalanceCard2(
-                          //     title: 'Total Balance',
-                          //     totalBalance: '\$224.57',
-                          //     lastPayment: '\$50',
-                          //     lastWithdraw: '\$150'),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Visibility(
-                            visible: [0, 1, 3, 4, 5].contains(selectedIndex),
-                            child: InkWell(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > 900) {
+          // If the width is greater than 900, display the web layout
+          // return MenderHomeScreen();
+          return Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage("assets/mender/main_background.png"))),
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              body: SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TopBar(
+                          row: [
+                            const Spacer(),
+                            GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  selectedIndex = 2;
+                                  selectedIndex = 0;
                                 });
                               },
-                              child: const Text(
-                                'Go to my wallet',
-                                style: TextStyle(
-                                  fontSize: 13.0,
-                                  color: Color(0xff09be7d), // Text color
-                                  decoration:
-                                      TextDecoration.underline, // Add underline
-                                  decorationStyle: TextDecorationStyle
-                                      .solid, // Solid underline style
-                                  decorationColor: Color(0xff09be7d),
-                                ),
-                              ),
+                              child: getButton(Icons.play_circle, "Flicks",
+                                  selectedIndex == 0),
                             ),
-                          ),
-                          Visibility(
-                            visible: [0, 1, 3, 4, 5].contains(selectedIndex),
-                            child: SizedBox(
-                              height: size.height * 0.38,
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  selectedIndex = 1;
+                                });
+                              },
+                              child: getButton(Icons.calendar_month, "Calendar",
+                                  selectedIndex == 1),
                             ),
-                          ),
-                          Visibility(
-                            visible: selectedIndex == 2,
-                            child: SizedBox(
-                              height: size.height * 0.29,
-                            ),
-                          ),
-                          // SizedBox(
-                          //   height: size.height * 0.38,
-                          // ),
-                          Container(
-                            padding:
-                                EdgeInsets.only(bottom: size.height * 0.03),
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              image: const DecorationImage(
-                                image: AssetImage('assets/mender/logo.png'),
-                              ),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black38,
-                                  blurStyle: BlurStyle.outer,
-                                  blurRadius: 4,
-                                  spreadRadius: 3.0,
-                                ),
-                              ],
-                              color: const Color(0xfff5fcf9),
-                            ),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.03,
-                          ),
-                        ],
-                      ),
-                      getMainWidget(size),
-                      SizedBox(
-                        height: size.height,
-                        width: 270,
-                        child: Column(
-                          children: [
-                            //first card
-                            NextSessionCard(
-                              title: 'Your next session',
-                              date: '07 September 2023',
-                              buddyName: 'Alejandra Vega',
-                              time: '12:00 - 16:00',
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Flexible(
-                              child: Container(
-                                height: size.height * 0.5,
-                                padding: const EdgeInsets.all(15),
-                                // width: size.width * 0.21,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: Colors.white,
-                                  border: Border.all(color: Colors.black12),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Buddies',
-                                          style: TextStyle(
-                                              color: Colors.black54,
-                                              fontSize: 15),
-                                        ),
-                                        SizedBox(
-                                          width: 150,
-                                        ),
-                                        Icon(
-                                          Icons.search,
-                                          color: Colors.black38,
-                                          size: 22,
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 12,
-                                    ),
-                                    Flexible(
-                                      child: ListView.builder(
-                                          itemCount: usersList.length,
-                                          itemBuilder: (context, index) {
-                                            return Column(
-                                              children: [
-                                                usersList[index],
-                                                const SizedBox(
-                                                  height: 10,
-                                                )
-                                              ],
-                                            );
-                                          }),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: size.height * 0.08,
-                            ),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Privacy - Terms & Cond. Mender ',
-                                  style: TextStyle(
-                                      color: Colors.black38, fontSize: 13),
-                                ),
-                                SizedBox(
-                                  width: 4,
-                                ),
-                                Icon(
-                                  Icons.copyright,
-                                  size: 15,
-                                  color: Colors.black26,
-                                ),
-                                Text(
-                                  '2023 ',
-                                  style: TextStyle(
-                                      color: Colors.black26, fontSize: 13),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: size.height * 0.02,
-                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedIndex = 2;
+                                  });
+                                },
+                                child: getButton(Icons.wallet, "Wallet",
+                                    selectedIndex == 2)),
+                            GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedIndex = 3;
+                                  });
+                                },
+                                child: getButton(Icons.group, "Client list",
+                                    selectedIndex == 3)),
+                            GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedIndex = 4;
+                                  });
+                                },
+                                child: getButton(Icons.message, "Messages",
+                                    selectedIndex == 4)),
+                            GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedIndex = 5;
+                                  });
+                                },
+                                child: getButton(Icons.person, "Profile",
+                                    selectedIndex == 5)),
                           ],
                         ),
-                      )
-                    ],
-                  ),
+                      ],
+                    ),
+                    // SizedBox(
+                    //   height: size.height * 0.04,
+                    // ),
+                    SizedBox(
+                      height: size.height * 0.04,
+                    ),
+                    SizedBox(
+                      width: size.width / 1.1,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Your balance',
+                                  style: TextStyle(color: Colors.black45),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Visibility(
+                                  visible:
+                                      [0, 1, 3, 4, 5].contains(selectedIndex),
+                                  child: BalanceCard(
+                                    title: 'Total Balance',
+                                    totalBalance: '\$224.57',
+                                    onButtonPressed: null,
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: selectedIndex == 2,
+                                  child: BalanceCard2(
+                                    title: 'Total Balance',
+                                    totalBalance: '\$224.57',
+                                    lastPayment: '\$50',
+                                    lastWithdraw: '\$150',
+                                  ),
+                                ),
+                                // BalanceCard(
+                                //     title: 'Total Balance',
+                                //     totalBalance: '\$224.57',
+                                //     onButtonPressed: null),
+                                // BalanceCard2(
+                                //     title: 'Total Balance',
+                                //     totalBalance: '\$224.57',
+                                //     lastPayment: '\$50',
+                                //     lastWithdraw: '\$150'),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Visibility(
+                                  visible:
+                                      [0, 1, 3, 4, 5].contains(selectedIndex),
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedIndex = 2;
+                                      });
+                                    },
+                                    child: const Text(
+                                      'Go to my wallet',
+                                      style: TextStyle(
+                                        fontSize: 13.0,
+                                        color: Color(0xff09be7d), // Text color
+                                        decoration: TextDecoration
+                                            .underline, // Add underline
+                                        decorationStyle: TextDecorationStyle
+                                            .solid, // Solid underline style
+                                        decorationColor: Color(0xff09be7d),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible:
+                                      [0, 1, 3, 4, 5].contains(selectedIndex),
+                                  child: SizedBox(
+                                    height: size.height * 0.38,
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: selectedIndex == 2,
+                                  child: SizedBox(
+                                    height: size.height * 0.29,
+                                  ),
+                                ),
+                                // SizedBox(
+                                //   height: size.height * 0.38,
+                                // ),
+                                Container(
+                                  padding: EdgeInsets.only(
+                                      bottom: size.height * 0.03),
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    image: const DecorationImage(
+                                      image:
+                                          AssetImage('assets/mender/logo.png'),
+                                    ),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.black38,
+                                        blurStyle: BlurStyle.outer,
+                                        blurRadius: 4,
+                                        spreadRadius: 3.0,
+                                      ),
+                                    ],
+                                    color: const Color(0xfff5fcf9),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.03,
+                                ),
+                              ],
+                            ),
+                            getMainWidget(size),
+                            SizedBox(
+                              height: size.height,
+                              width: 270,
+                              child: Column(
+                                children: [
+                                  //first card
+                                  NextSessionCard(
+                                    title: 'Your next session',
+                                    date: '07 September 2023',
+                                    buddyName: 'Alejandra Vega',
+                                    time: '12:00 - 16:00',
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Flexible(
+                                    child: Container(
+                                      height: size.height * 0.5,
+                                      padding: const EdgeInsets.all(15),
+                                      // width: size.width * 0.21,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        color: Colors.white,
+                                        border:
+                                            Border.all(color: Colors.black12),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Buddies',
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 15),
+                                              ),
+                                              SizedBox(
+                                                width: 150,
+                                              ),
+                                              Icon(
+                                                Icons.search,
+                                                color: Colors.black38,
+                                                size: 22,
+                                              )
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          Flexible(
+                                            child: ListView.builder(
+                                                itemCount: usersList.length,
+                                                itemBuilder: (context, index) {
+                                                  return Column(
+                                                    children: [
+                                                      usersList[index],
+                                                      const SizedBox(
+                                                        height: 10,
+                                                      )
+                                                    ],
+                                                  );
+                                                }),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.08,
+                                  ),
+                                  const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Privacy - Terms & Cond. Mender ',
+                                        style: TextStyle(
+                                            color: Colors.black38,
+                                            fontSize: 13),
+                                      ),
+                                      SizedBox(
+                                        width: 4,
+                                      ),
+                                      Icon(
+                                        Icons.copyright,
+                                        size: 15,
+                                        color: Colors.black26,
+                                      ),
+                                      Text(
+                                        '2023 ',
+                                        style: TextStyle(
+                                            color: Colors.black26,
+                                            fontSize: 13),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.02,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
+              ),
+            ),
+          );
+        } else {
+          // Otherwise, display the mobile layout
+          return Center(
+            child: Text("Mobile App"),
+          );
+        }
+      },
     );
   }
 
@@ -663,6 +688,8 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
   }
 
   Widget getCalendarWidget(size) {
+    double calendarHeight = size.height * 0.4;
+    double reducedCalendarHeight = size.height * 0.3;
     return SizedBox(
         height: size.height,
         width: size.width / 2.8,
@@ -673,6 +700,10 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
             Stack(
               children: [
                 Container(
+                  // height: size.height * 0.4,
+                  height: isCalenderVisible
+                      ? calendarHeight
+                      : reducedCalendarHeight,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
                     color: Colors.white,
@@ -793,7 +824,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                       'Client',
                       style: TextStyle(
                           letterSpacing: 1.5,
-                          fontSize: 14,
+                          fontSize: 12,
                           color: Colors.black54,
                           fontWeight: FontWeight.bold),
                     ),
@@ -831,7 +862,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                       'Title',
                       style: TextStyle(
                           letterSpacing: 1.5,
-                          fontSize: 14,
+                          fontSize: 12,
                           color: Colors.black54,
                           fontWeight: FontWeight.bold),
                     ),
@@ -858,7 +889,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                       'Time',
                       style: TextStyle(
                           letterSpacing: 1.5,
-                          fontSize: 14,
+                          fontSize: 12,
                           color: Colors.black54,
                           fontWeight: FontWeight.bold),
                     ),
@@ -880,6 +911,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                             Icon(
                               Icons.access_time,
                               color: Colors.black54,
+                              size: 20,
                             ),
                             Text(
                               'Starts',
@@ -905,7 +937,11 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                                   final hour = (index + 1).toString();
                                   return DropdownMenuItem<String>(
                                     value: hour,
-                                    child: Text(hour),
+                                    child: Text(
+                                      hour,
+                                      style: TextStyle(
+                                          fontSize: 13, color: Colors.black45),
+                                    ),
                                   );
                                 }),
                               ),
@@ -927,7 +963,11 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                                       index.toString().padLeft(2, '0');
                                   return DropdownMenuItem<String>(
                                     value: minute,
-                                    child: Text(minute),
+                                    child: Text(
+                                      minute,
+                                      style: TextStyle(
+                                          fontSize: 13, color: Colors.black45),
+                                    ),
                                   );
                                 }),
                               ),
@@ -948,7 +988,11 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                                     .map<DropdownMenuItem<String>>((value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
-                                    child: Text(value),
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(
+                                          fontSize: 13, color: Colors.black45),
+                                    ),
                                   );
                                 }).toList(),
                               ),
@@ -969,19 +1013,23 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: ListTile(
-                        leading: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.access_time,
-                              color: Colors.black54,
-                            ),
-                            Text(
-                              'End',
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 12),
-                            )
-                          ],
+                        leading: Padding(
+                          padding: EdgeInsets.only(left: 5),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.access_time,
+                                size: 20,
+                                color: Colors.black54,
+                              ),
+                              Text(
+                                'End',
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 12),
+                              )
+                            ],
+                          ),
                         ),
                         title: Row(
                           children: [
@@ -1000,7 +1048,11 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                                   final hour = (index + 1).toString();
                                   return DropdownMenuItem<String>(
                                     value: hour,
-                                    child: Text(hour),
+                                    child: Text(
+                                      hour,
+                                      style: TextStyle(
+                                          fontSize: 13, color: Colors.black45),
+                                    ),
                                   );
                                 }),
                               ),
@@ -1022,7 +1074,11 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                                       index.toString().padLeft(2, '0');
                                   return DropdownMenuItem<String>(
                                     value: minute,
-                                    child: Text(minute),
+                                    child: Text(
+                                      minute,
+                                      style: TextStyle(
+                                          fontSize: 13, color: Colors.black45),
+                                    ),
                                   );
                                 }),
                               ),
@@ -1043,7 +1099,11 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                                     .map<DropdownMenuItem<String>>((value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
-                                    child: Text(value),
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(
+                                          fontSize: 13, color: Colors.black45),
+                                    ),
                                   );
                                 }).toList(),
                               ),
@@ -1059,7 +1119,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                       'Repeat',
                       style: TextStyle(
                           letterSpacing: 1.5,
-                          fontSize: 14,
+                          fontSize: 12,
                           color: Colors.black54,
                           fontWeight: FontWeight.bold),
                     ),
@@ -1097,7 +1157,11 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                             ].map<DropdownMenuItem<String>>((value) {
                               return DropdownMenuItem<String>(
                                 value: value,
-                                child: Text(value),
+                                child: Text(
+                                  value,
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.black45),
+                                ),
                               );
                             }).toList(),
                           ),
@@ -1581,12 +1645,15 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
           InkWell(
             onTap: () {},
             child: Container(
-              height: size.height * 0.05,
-              width: size.width * 0.08,
+              height: size.height * 0.06,
+              width: size.width * 0.09,
               decoration: BoxDecoration(
+                color: Colors.transparent,
                 image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/mender/colorfulbutton.png")),
+                    fit: BoxFit.fill,
+                    image: AssetImage(
+                      "assets/mender/colorfulbutton.png",
+                    )),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black12,
@@ -1598,13 +1665,15 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                 // color: Colors.transparent,
               ),
               child: const Center(
-                child: Text(
-                  'Find Clients',
-                  style: TextStyle(
-                      letterSpacing: 1,
-                      fontSize: 12,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
+                child: InkWell(
+                  child: Text(
+                    'Find Clients',
+                    style: TextStyle(
+                        letterSpacing: 1,
+                        fontSize: 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),
