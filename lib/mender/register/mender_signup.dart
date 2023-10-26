@@ -17,6 +17,7 @@ class _MenderSignUpState extends State<MenderSignUp> {
   //you can put these values where ever you want
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
   void forgotPassword() async {}
   void login() async {}
@@ -54,6 +55,28 @@ class _MenderSignUpState extends State<MenderSignUp> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const Text(
+                              " Name",
+                              style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Card(
+                              color: Colors.white,
+                              elevation: 5,
+                              child: TextFormField(
+                                controller: nameController,
+                                decoration: InputDecoration(
+                                    hintText: "Username",
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide.none)),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             const Text(
                               " Email",
                               style: TextStyle(

@@ -216,9 +216,21 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: size.height * 0.70,
+                          Visibility(
+                            visible: [0, 1, 3, 4, 5].contains(selectedIndex),
+                            child: SizedBox(
+                              height: size.height * 0.38,
+                            ),
                           ),
+                          Visibility(
+                            visible: selectedIndex == 2,
+                            child: SizedBox(
+                              height: size.height * 0.29,
+                            ),
+                          ),
+                          // SizedBox(
+                          //   height: size.height * 0.38,
+                          // ),
                           Container(
                             padding:
                                 EdgeInsets.only(bottom: size.height * 0.03),
@@ -263,7 +275,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                             ),
                             Flexible(
                               child: Container(
-                                // height: size.height * 0.09,
+                                height: size.height * 0.5,
                                 padding: const EdgeInsets.all(15),
                                 // width: size.width * 0.21,
                                 decoration: BoxDecoration(
@@ -319,10 +331,10 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                               ),
                             ),
                             SizedBox(
-                              height: size.height * 0.06,
+                              height: size.height * 0.08,
                             ),
                             const Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -457,7 +469,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                               AssetImage('assets/mender/images4.jpeg'),
                         ),
                         const SizedBox(
-                          width: 3,
+                          width: 5,
                         ),
                         const Padding(
                           padding: EdgeInsets.only(top: 5),
