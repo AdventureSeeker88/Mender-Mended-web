@@ -87,6 +87,7 @@ class _MenderSignUpState extends State<MenderSignUp> {
                               color: Colors.white,
                               elevation: 5,
                               child: TextFormField(
+                                obscureText: true,
                                 controller: passwordController,
                                 decoration: InputDecoration(
                                     hintText: "Password",

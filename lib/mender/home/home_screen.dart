@@ -43,7 +43,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
   bool isWalletVisible = true;
   bool isCalenderVisible = true;
   late double rating = 0;
-  int selectedIndex = 1;
+  int selectedIndex = 0;
   List usersList = [
     const UserContainer(
       imageUrl: 'assets/mender/images3.jpeg',
@@ -433,12 +433,12 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   boxShadow: const [
-                    // BoxShadow(
-                    //   color: Colors.black38,
-                    //   blurStyle: BlurStyle.outer,
-                    //   blurRadius: 8,
-                    //   spreadRadius: 2.0,
-                    // ),
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurStyle: BlurStyle.outer,
+                      blurRadius: 3,
+                      spreadRadius: 1.0,
+                    ),
                   ],
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -512,14 +512,28 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                     //     ),
                     //   ),
                     // ),
+                    // Padding(
+                    //     padding: const EdgeInsets.symmetric(vertical: 5),
+                    //     child: CachedNetworkImage(
+                    //       imageUrl:
+                    //           "https://hips.hearstapps.com/hmg-prod/images/img-1484-jpg-649644d3c1386.jpg?crop=0.571xw:0.762xh;0.240xw,0.195xh&resize=1200:*",
+                    //       width: size.width,
+                    //       height: size.width * 0.3,
+                    //     )),
                     Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              "https://hips.hearstapps.com/hmg-prod/images/img-1484-jpg-649644d3c1386.jpg?crop=0.571xw:0.762xh;0.240xw,0.195xh&resize=1200:*",
+                        child: Image.asset(
+                          'assets/mender/doctor.jpg',
                           width: size.width,
-                          height: size.width * 0.3,
-                        )),
+                          height: size.height * 0.53,
+                        )
+                        // CachedNetworkImage(
+                        //   imageUrl:
+                        //       "https://example.com/your-medical-image-url.jpg",
+                        //   width: size.width,
+                        //   height: size.width * 0.3,
+                        // ),
+                        ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -1556,7 +1570,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
             onTap: () {},
             child: Container(
               height: size.height * 0.05,
-              width: size.width * 0.09,
+              width: size.width * 0.08,
               decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.cover,

@@ -36,7 +36,8 @@ class MyApp extends StatelessWidget {
         builder: (context, constraints) {
           if (constraints.maxWidth > 900) {
             // If the width is greater than 900, display the web layout
-            return MenderHomeScreen();
+            // return MenderHomeScreen();
+            return MenderSignIn();
           } else {
             // Otherwise, display the mobile layout
             return Center(

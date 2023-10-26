@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:mended_mender/constants.dart';
+import 'package:mended_mender/mender/forgetPassword/mender_forgetPassword.dart';
 import 'package:mended_mender/mender/home/home_screen.dart';
 import 'package:mended_mender/mender/register/mender_signup.dart';
 import 'package:mended_mender/mender/widgets/custom_elevated_button.dart';
@@ -18,10 +19,9 @@ class _MenderSignInState extends State<MenderSignIn> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  void forgotPassword() async {}
+  void forgotPassword() {}
 
   void login() async {}
-
   void signupGoogle() async {}
   void signupFacebook() async {}
   void signupApple() async {}
@@ -89,6 +89,7 @@ class _MenderSignInState extends State<MenderSignIn> {
                               color: Colors.white,
                               elevation: 5,
                               child: TextFormField(
+                                obscureText: true,
                                 controller: passwordController,
                                 decoration: InputDecoration(
                                     hintText: "Password",
@@ -105,7 +106,8 @@ class _MenderSignInState extends State<MenderSignIn> {
                               children: [
                                 TextButton(
                                     onPressed: () {
-                                      forgotPassword();
+                                      moveScreen(context,
+                                          const MenderForgotPassword());
                                     },
                                     child: const Text(
                                       "Forgot your Password?",
