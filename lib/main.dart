@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mended_mender/mended/forgetPassword/mended_forgetPassword.dart';
 import 'package:mended_mender/mended/home/home_screen.dart';
+import 'package:mended_mender/mended/onboarding/onboarding_screen.dart';
 import 'package:mended_mender/mended/register/mended_register.dart';
 import 'package:mended_mender/mended/signin/mended_signin.dart';
 import 'package:mended_mender/mender/home/home_screen.dart';
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
           if (constraints.maxWidth > 900) {
             // If the width is greater than 900, display the web layout
             // return const MenderHomeScreen();
-            return const MendedHomeScreen();
+            return const MenderSignIn();
           } else {
             // Otherwise, display the mobile layout
             return const Center(

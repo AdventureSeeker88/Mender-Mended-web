@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mended_mender/constants.dart';
 import 'package:mended_mender/mender/forgetPassword/mender_emailVerification.dart';
 import 'package:mended_mender/mender/home/home_screen.dart';
+import 'package:mended_mender/mender/signin/mender_signin.dart';
 import 'package:mended_mender/mender/widgets/custom_elevated_button.dart';
 import 'package:mended_mender/mender/widgets/top_bar.dart';
 
@@ -127,8 +128,8 @@ class _MenderResetPasswordState extends State<MenderResetPassword> {
                                         child: CustomElevatedButton(
                                           title: 'Continue',
                                           callback: () {
-                                            moveScreen(context,
-                                                const MenderHomeScreen());
+                                            moveScreen(
+                                                context, const MenderSignIn());
                                           },
                                           width: double.infinity,
                                         ),

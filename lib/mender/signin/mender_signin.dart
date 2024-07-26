@@ -41,6 +41,7 @@ class _MenderSignInState extends State<MenderSignIn> {
         body: Column(
           children: [
             const TopBar(),
+            
             Row(
               children: [
                 const Spacer(

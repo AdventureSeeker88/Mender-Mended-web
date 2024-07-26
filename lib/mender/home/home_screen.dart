@@ -23,6 +23,7 @@ class MenderHomeScreen extends StatefulWidget {
 
 class _MenderHomeScreenState extends State<MenderHomeScreen> {
   TextEditingController SearchController = TextEditingController();
+  TextEditingController MessagesSearchController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -30,6 +31,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
   TextEditingController withdrawController = TextEditingController();
   TextEditingController calenderTitleController = TextEditingController();
 
+  int selectedButton = 0;
   String selectedRepeat = 'Never';
   String selectedHour = '1';
   String selectedMinute = '00';
@@ -66,6 +68,13 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
       name: 'White Parker',
     )
   ];
+
+  void selectButton(int index) {
+    setState(() {
+      selectedButton = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -434,16 +443,41 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CustomButton(text: 'Friends'),
+                CustomButton(
+                  text: 'Friends',
+                  isSelected: selectedButton == 0,
+                  onPressed: () {
+                    selectButton(0);
+                  },
+                ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 25),
                   width: 0.5, // Adjust the width as needed
                   height: 20.0, // Adjust the height as needed
                   color: Colors.black,
                 ),
-                const CustomButton(text: 'Popular'),
+                CustomButton(
+                  text: 'Popular',
+                  isSelected: selectedButton == 1,
+                  onPressed: () {
+                    selectButton(1);
+                  },
+                ),
               ],
             ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     const CustomButton(text: 'Friends'),
+            //     Container(
+            //       margin: const EdgeInsets.symmetric(horizontal: 25),
+            //       width: 0.5, // Adjust the width as needed
+            //       height: 20.0, // Adjust the height as needed
+            //       color: Colors.black,
+            //     ),
+            //     const CustomButton(text: 'Popular'),
+            //   ],
+            // ),
             Expanded(
               child: ListView.builder(
                   shrinkWrap: true,
@@ -1732,14 +1766,26 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const CustomButton2(text: 'Mender\'s Buddies'),
+              CustomButton2(
+                text: 'Mender\'s Buddies',
+                isSelected: selectedButton == 0,
+                onPressed: () {
+                  selectButton(0);
+                },
+              ),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 25),
                 width: 0.5, // Adjust the width as needed
                 height: 20.0, // Adjust the height as needed
                 color: Colors.black,
               ),
-              const CustomButton2(text: 'Clients'),
+              CustomButton2(
+                text: 'Clients',
+                isSelected: selectedButton == 1,
+                onPressed: () {
+                  selectButton(1);
+                },
+              ),
             ],
           ),
           SizedBox(
@@ -1758,7 +1804,7 @@ class _MenderHomeScreenState extends State<MenderHomeScreen> {
                 size: 24,
               ),
               title: TextField(
-                controller: SearchController,
+                controller: MessagesSearchController,
                 style: const TextStyle(fontSize: 14),
                 // cursorColor: Colors.orange,
                 // obscureText: false,
@@ -2297,31 +2343,26 @@ class CustomListTile extends StatelessWidget {
   }
 }
 
-class CustomButton extends StatefulWidget {
+class CustomButton extends StatelessWidget {
   final String text;
+  final bool isSelected;
+  final VoidCallback onPressed;
 
-  const CustomButton({super.key, required this.text});
-
-  @override
-  State<CustomButton> createState() => _CustomButtonState();
-}
-
-class _CustomButtonState extends State<CustomButton> {
-  bool isPressed = false;
+  const CustomButton({
+    required this.text,
+    required this.isSelected,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        setState(() {
-          isPressed = !isPressed;
-        });
-      },
+      onPressed: onPressed,
       child: Text(
-        widget.text,
+        text,
         style: TextStyle(
-          color: isPressed ? Colors.black : Colors.black.withOpacity(0.3),
-          fontWeight: isPressed ? FontWeight.bold : FontWeight.normal,
+          color: isSelected ? Colors.black : Colors.black.withOpacity(0.3),
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           fontSize: 15,
         ),
       ),
@@ -2329,39 +2370,102 @@ class _CustomButtonState extends State<CustomButton> {
   }
 }
 
-class CustomButton2 extends StatefulWidget {
+class CustomButton2 extends StatelessWidget {
   final String text;
+  final bool isSelected;
+  final VoidCallback onPressed;
 
-  const CustomButton2({super.key, required this.text});
-
-  @override
-  State<CustomButton2> createState() => _CustomButtonState2();
-}
-
-class _CustomButtonState2 extends State<CustomButton2> {
-  bool isPressed = false;
+  const CustomButton2({
+    required this.text,
+    required this.isSelected,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        setState(() {
-          isPressed = !isPressed;
-        });
-      },
+      onPressed: onPressed,
       child: Text(
-        widget.text,
+        text,
         style: TextStyle(
-          color: isPressed
+          color: isSelected
               ? Color(0xff0A8357)
               : Color(0xff0A8357).withOpacity(0.5),
-          fontWeight: isPressed ? FontWeight.bold : FontWeight.normal,
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           fontSize: 15,
         ),
       ),
     );
   }
 }
+// class CustomButton extends StatefulWidget {
+//   final String text;
+//
+//   const CustomButton({super.key, required this.text});
+//
+//   @override
+//   State<CustomButton> createState() => _CustomButtonState();
+// }
+
+// class _CustomButtonState extends State<CustomButton> {
+//   bool isPressed = false;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextButton(
+//       onPressed: () {
+//         setState(() {
+//           isPressed = !isPressed;
+//         });
+//       },
+//       child: Text(
+//         widget.text,
+//         style: TextStyle(
+//           color: isPressed ? Colors.black : Colors.black.withOpacity(0.3),
+//           fontWeight: isPressed ? FontWeight.bold : FontWeight.normal,
+//           fontSize: 15,
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class CustomButton2 extends StatefulWidget {
+//   final String text;
+//   final bool isSelected;
+//   final VoidCallback onPressed;
+//
+//   const CustomButton2({super.key, required this.text,required this.isSelected,
+//     required this.onPressed,});
+//
+//   @override
+//   State<CustomButton2> createState() => _CustomButtonState2();
+// }
+//
+// class _CustomButtonState2 extends State<CustomButton2> {
+//   bool isPressed = false;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextButton(
+//       onPressed: () {
+//         setState(() {
+//           isPressed = !isPressed;
+//         });
+//       },
+//       child: Text(
+//         widget.text,
+//         style: TextStyle(
+//           color: isPressed
+//               ? Color(0xff0A8357)
+//               : Color(0xff0A8357).withOpacity(0.5),
+//           fontWeight: isPressed ? FontWeight.bold : FontWeight.normal,
+//           fontSize: 15,
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class UserContainer extends StatelessWidget {
   final String imageUrl;

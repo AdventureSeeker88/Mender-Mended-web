@@ -22,12 +22,23 @@ class MendedCustomElevatedButton extends StatelessWidget {
       child: Center(
           child: Padding(
               padding: const EdgeInsets.all(1.0),
-              child: Text(
-                title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700),
+              child: InkWell(
+                onTap: callback,
+
+                // ElevatedButton(
+                //   style: ElevatedButton.styleFrom(
+                //     fixedSize: Size(width, 40),
+                //     shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(18)),
+                //   ),
+                //   onPressed: callback,
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700),
+                ),
               ))),
     );
   }
